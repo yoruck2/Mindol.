@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
-
-struct UIApplication_: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+ 
+extension UIApplication {
+    func hideKeyboard() {
+        let scenes = UIApplication.shared.connectedScenes
+        guard let windowScene = scenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return }
+        let tapRecognizer = UITapGestureRecognizer(target: window, action: #selector(UIView.endEditing))
+        tapRecognizer.cancelsTouchesInView = false
+        tapRecognizer.delegate = self
+        window.addGestureRecognizer(tapRecognizer)
     }
-}
-
-#Preview {
-    UIApplication_()
+ }
+ 
+extension UIApplication: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
 }
