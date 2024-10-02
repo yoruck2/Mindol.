@@ -9,15 +9,14 @@ import RealmSwift
 import Foundation
 
 final class DiaryTable: Object, ObjectKeyIdentifiable {
-    
-    @Persisted var id: ObjectId
+    @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var feeling: String
     @Persisted var date: Date
     @Persisted var contents: Contents?
     
-    convenience init(feeling: Rock, date: Date, contents: Contents) {
+    convenience init(feeling: String, date: Date, contents: Contents) {
         self.init()
-        self.feeling = feeling.rawValue
+        self.feeling = feeling
         self.date = date
         self.contents = contents
     }
