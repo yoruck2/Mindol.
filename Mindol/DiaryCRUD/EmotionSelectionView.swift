@@ -13,22 +13,34 @@ struct EmotionSelectionView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
+            VStack {
+                Text(Date().formattedDate)
+                Text("오늘의 감정을 선택해주세요")
+                    .padding(.bottom, 40)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 20) {
                     ForEach(Rock.allCases) { rock in
                         rock.image
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 100, height: 100)
+                            .frame(width: 80, height: 80)
                             .onTapGesture {
                                 selectedRock = rock
                                 dismiss()
                             }
                     }
                 }
-                .padding()
             }
-            .navigationTitle("감정 선택")
+                            .padding(.bottom, 100)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.black)
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+            }
         }
     }
 }
