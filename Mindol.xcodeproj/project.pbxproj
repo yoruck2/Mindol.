@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8490532A2CA990E20089DD08 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053292CA990E20089DD08 /* ContentView.swift */; };
+		8490532A2CA990E20089DD08 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053292CA990E20089DD08 /* DiaryListView.swift */; };
 		8490532C2CA990E30089DD08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8490532B2CA990E30089DD08 /* Assets.xcassets */; };
 		8490532F2CA990E30089DD08 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8490532E2CA990E30089DD08 /* Preview Assets.xcassets */; };
 		849053362CA9910F0089DD08 /* DiaryTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053352CA9910F0089DD08 /* DiaryTable.swift */; };
@@ -15,28 +15,51 @@
 		8490533C2CA9912A0089DD08 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 8490533B2CA9912A0089DD08 /* FSCalendar */; };
 		8490533E2CA991430089DD08 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490533D2CA991430089DD08 /* Repository.swift */; };
 		8490534A2CA991AB0089DD08 /* EmotionSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053492CA991AB0089DD08 /* EmotionSelectionView.swift */; };
-		8490534D2CA991C40089DD08 /* RockStackScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490534C2CA991C40089DD08 /* RockStackScene.swift */; };
+		8490534D2CA991C40089DD08 /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490534C2CA991C40089DD08 /* Rock.swift */; };
 		8490534F2CA991DC0089DD08 /* CreateDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */; };
-		849053522CA99DEA0089DD08 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053512CA99DEA0089DD08 /* DiaryViewModel.swift */; };
+		849053522CA99DEA0089DD08 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053512CA99DEA0089DD08 /* DiaryRepository.swift */; };
 		849053542CA9ACD60089DD08 /* CustomTextEditorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053532CA9ACD60089DD08 /* CustomTextEditorStyle.swift */; };
 		849053562CA9AEF40089DD08 /* MindolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053552CA9AEF40089DD08 /* MindolApp.swift */; };
 		849053582CA9AF430089DD08 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 849053572CA9AF430089DD08 /* .gitignore */; };
+		8490535B2CA9B7C70089DD08 /* RowStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490535A2CA9B7C70089DD08 /* RowStackView.swift */; };
+		8490535E2CA9BFAC0089DD08 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490535D2CA9BFAC0089DD08 /* Date+.swift */; };
+		849053602CA9D6D70089DD08 /* ReadDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490535F2CA9D6D70089DD08 /* ReadDiaryView.swift */; };
+		849053632CAA3EC60089DD08 /* RockStackScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053622CAA3EC60089DD08 /* RockStackScene.swift */; };
+		849053662CABF2290089DD08 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 849053652CABF2290089DD08 /* SwiftUIIntrospect */; };
+		8490536D2CAC84CE0089DD08 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490536C2CAC84CE0089DD08 /* UIApplication+.swift */; };
+		84B7521C2CAD47570015B327 /* RockStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7521B2CAD47570015B327 /* RockStackView.swift */; };
+		84B7521E2CADB1380015B327 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7521D2CADB1380015B327 /* MainTabView.swift */; };
+		84B752212CADBA990015B327 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752202CADBA990015B327 /* CalendarView.swift */; };
+		84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752222CADBDBD0015B327 /* FlipCardView.swift */; };
+		84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752242CADBEBD0015B327 /* SceneWrapper.swift */; };
+		84B752272CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		849053242CA990E20089DD08 /* Mindol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mindol.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		849053292CA990E20089DD08 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		849053292CA990E20089DD08 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		8490532B2CA990E30089DD08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8490532E2CA990E30089DD08 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		849053352CA9910F0089DD08 /* DiaryTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTable.swift; sourceTree = "<group>"; };
 		8490533D2CA991430089DD08 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		849053492CA991AB0089DD08 /* EmotionSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionSelectionView.swift; sourceTree = "<group>"; };
-		8490534C2CA991C40089DD08 /* RockStackScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockStackScene.swift; sourceTree = "<group>"; };
+		8490534C2CA991C40089DD08 /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDiaryView.swift; sourceTree = "<group>"; };
-		849053512CA99DEA0089DD08 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		849053512CA99DEA0089DD08 /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
 		849053532CA9ACD60089DD08 /* CustomTextEditorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditorStyle.swift; sourceTree = "<group>"; };
 		849053552CA9AEF40089DD08 /* MindolApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindolApp.swift; sourceTree = "<group>"; };
 		849053572CA9AF430089DD08 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		8490535A2CA9B7C70089DD08 /* RowStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowStackView.swift; sourceTree = "<group>"; };
+		8490535D2CA9BFAC0089DD08 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		8490535F2CA9D6D70089DD08 /* ReadDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDiaryView.swift; sourceTree = "<group>"; };
+		849053622CAA3EC60089DD08 /* RockStackScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockStackScene.swift; sourceTree = "<group>"; };
+		8490536C2CAC84CE0089DD08 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		84B7521B2CAD47570015B327 /* RockStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockStackView.swift; sourceTree = "<group>"; };
+		84B7521D2CADB1380015B327 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		84B752202CADBA990015B327 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		84B752222CADBDBD0015B327 /* FlipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCardView.swift; sourceTree = "<group>"; };
+		84B752242CADBEBD0015B327 /* SceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneWrapper.swift; sourceTree = "<group>"; };
+		84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptiveBottomBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849053662CABF2290089DD08 /* SwiftUIIntrospect in Frameworks */,
 				849053392CA991200089DD08 /* RealmSwift in Frameworks */,
 				8490533C2CA9912A0089DD08 /* FSCalendar in Frameworks */,
 			);
@@ -73,9 +97,15 @@
 			isa = PBXGroup;
 			children = (
 				849053552CA9AEF40089DD08 /* MindolApp.swift */,
-				849053292CA990E20089DD08 /* ContentView.swift */,
+				84B7521D2CADB1380015B327 /* MainTabView.swift */,
+				849053292CA990E20089DD08 /* DiaryListView.swift */,
+				8490534C2CA991C40089DD08 /* Rock.swift */,
 				849053502CA995430089DD08 /* DB */,
-				849053442CA9917B0089DD08 /* RockStackView */,
+				849053612CAA3EA80089DD08 /* RockStack */,
+				849053442CA9917B0089DD08 /* DiaryCRUD */,
+				84B7521F2CADBA750015B327 /* Component */,
+				849053592CA9B29A0089DD08 /* ViewModifier */,
+				8490535C2CA9BF990089DD08 /* Extension */,
 				8490532B2CA990E30089DD08 /* Assets.xcassets */,
 				8490532D2CA990E30089DD08 /* Preview Content */,
 			);
@@ -90,25 +120,62 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		849053442CA9917B0089DD08 /* RockStackView */ = {
+		849053442CA9917B0089DD08 /* DiaryCRUD */ = {
 			isa = PBXGroup;
 			children = (
-				849053512CA99DEA0089DD08 /* DiaryViewModel.swift */,
 				849053492CA991AB0089DD08 /* EmotionSelectionView.swift */,
 				8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */,
-				8490534C2CA991C40089DD08 /* RockStackScene.swift */,
-				849053532CA9ACD60089DD08 /* CustomTextEditorStyle.swift */,
+				8490535A2CA9B7C70089DD08 /* RowStackView.swift */,
+				8490535F2CA9D6D70089DD08 /* ReadDiaryView.swift */,
 			);
-			path = RockStackView;
+			path = DiaryCRUD;
 			sourceTree = "<group>";
 		};
 		849053502CA995430089DD08 /* DB */ = {
 			isa = PBXGroup;
 			children = (
 				849053352CA9910F0089DD08 /* DiaryTable.swift */,
+				849053512CA99DEA0089DD08 /* DiaryRepository.swift */,
 				8490533D2CA991430089DD08 /* Repository.swift */,
 			);
 			path = DB;
+			sourceTree = "<group>";
+		};
+		849053592CA9B29A0089DD08 /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				849053532CA9ACD60089DD08 /* CustomTextEditorStyle.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
+		8490535C2CA9BF990089DD08 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8490535D2CA9BFAC0089DD08 /* Date+.swift */,
+				8490536C2CAC84CE0089DD08 /* UIApplication+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		849053612CAA3EA80089DD08 /* RockStack */ = {
+			isa = PBXGroup;
+			children = (
+				84B7521B2CAD47570015B327 /* RockStackView.swift */,
+				849053622CAA3EC60089DD08 /* RockStackScene.swift */,
+				84B752242CADBEBD0015B327 /* SceneWrapper.swift */,
+				84B752222CADBDBD0015B327 /* FlipCardView.swift */,
+			);
+			path = RockStack;
+			sourceTree = "<group>";
+		};
+		84B7521F2CADBA750015B327 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				84B752202CADBA990015B327 /* CalendarView.swift */,
+				84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +197,7 @@
 			packageProductDependencies = (
 				849053382CA991200089DD08 /* RealmSwift */,
 				8490533B2CA9912A0089DD08 /* FSCalendar */,
+				849053652CABF2290089DD08 /* SwiftUIIntrospect */,
 			);
 			productName = Mindol;
 			productReference = 849053242CA990E20089DD08 /* Mindol.app */;
@@ -162,6 +230,7 @@
 			packageReferences = (
 				849053372CA991200089DD08 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				8490533A2CA9912A0089DD08 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				849053642CABF2290089DD08 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			productRefGroup = 849053252CA990E20089DD08 /* Products */;
 			projectDirPath = "";
@@ -192,13 +261,24 @@
 			files = (
 				849053562CA9AEF40089DD08 /* MindolApp.swift in Sources */,
 				8490534A2CA991AB0089DD08 /* EmotionSelectionView.swift in Sources */,
-				8490532A2CA990E20089DD08 /* ContentView.swift in Sources */,
+				8490532A2CA990E20089DD08 /* DiaryListView.swift in Sources */,
+				84B752212CADBA990015B327 /* CalendarView.swift in Sources */,
+				84B7521E2CADB1380015B327 /* MainTabView.swift in Sources */,
 				849053362CA9910F0089DD08 /* DiaryTable.swift in Sources */,
-				849053522CA99DEA0089DD08 /* DiaryViewModel.swift in Sources */,
-				8490534D2CA991C40089DD08 /* RockStackScene.swift in Sources */,
+				8490535B2CA9B7C70089DD08 /* RowStackView.swift in Sources */,
+				8490536D2CAC84CE0089DD08 /* UIApplication+.swift in Sources */,
+				849053522CA99DEA0089DD08 /* DiaryRepository.swift in Sources */,
+				8490534D2CA991C40089DD08 /* Rock.swift in Sources */,
+				8490535E2CA9BFAC0089DD08 /* Date+.swift in Sources */,
+				84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */,
+				84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */,
 				8490534F2CA991DC0089DD08 /* CreateDiaryView.swift in Sources */,
 				849053542CA9ACD60089DD08 /* CustomTextEditorStyle.swift in Sources */,
+				84B752272CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift in Sources */,
+				849053632CAA3EC60089DD08 /* RockStackScene.swift in Sources */,
+				849053602CA9D6D70089DD08 /* ReadDiaryView.swift in Sources */,
 				8490533E2CA991430089DD08 /* Repository.swift in Sources */,
+				84B7521C2CAD47570015B327 /* RockStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +415,7 @@
 				DEVELOPMENT_TEAM = DB9LFYULKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Mindol;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -369,6 +450,7 @@
 				DEVELOPMENT_TEAM = DB9LFYULKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Mindol;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +514,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		849053642CABF2290089DD08 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -444,6 +534,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8490533A2CA9912A0089DD08 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		849053652CABF2290089DD08 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 849053642CABF2290089DD08 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
