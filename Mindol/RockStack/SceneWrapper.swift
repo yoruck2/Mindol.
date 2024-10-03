@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 class SceneWrapper: ObservableObject {
     @Published var currentMonth: Date
+    @Published var selectedDiaryId: ObjectId?
     private var scene: RockStackScene?
     let diaryRepository: DiaryRepository
     
@@ -24,7 +26,7 @@ class SceneWrapper: ObservableObject {
             updateScene()
         }
     }
-
+    
     func getScene() -> RockStackScene {
         if let scene = scene {
             return scene
@@ -32,9 +34,19 @@ class SceneWrapper: ObservableObject {
         let newScene = RockStackScene()
         newScene.size = CGSize(width: 350, height: 450)
         newScene.scaleMode = .aspectFill
+        newScene.onRockTapped = { [weak self] diaryId in
+            self?.selectedDiaryId = diaryId
+        }
         self.scene = newScene
         updateScene()
         return newScene
+    }
+    
+    func addSingleRock(_ diary: DiaryTable) {
+        if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
+            scene?.addNewRock(diary)
+            objectWillChange.send()
+        }
     }
     
     private func updateScene() {
@@ -42,10 +54,10 @@ class SceneWrapper: ObservableObject {
         scene?.setupRocksFromDiaries(diaries, for: currentMonth)
     }
     
-    func addSingleRock(_ diary: DiaryTable) {
-            if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
-                scene?.addRock(for: diary)
-                objectWillChange.send()  // SwiftUI에게 뷰를 업데이트하도록 알림
-            }
-        }
+//    func addSingleRock(_ diary: DiaryTable) {
+//            if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
+//                scene?.addRock(for: diary)
+//                objectWillChange.send()  // SwiftUI에게 뷰를 업데이트하도록 알림
+//            }
+//        }
 }

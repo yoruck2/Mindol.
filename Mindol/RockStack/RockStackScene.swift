@@ -7,6 +7,7 @@
 
 import SpriteKit
 import CoreMotion
+import RealmSwift
 
 struct RockStackSceneConfig {
     static let rockSize: CGFloat = 60
@@ -18,8 +19,9 @@ struct RockStackSceneConfig {
 
 class RockStackScene: SKScene {
     private let motionManager = CMMotionManager()
-    private var rockNodes: [SKNode] = []
-    var currentMonth: Date?
+    private var rockNodes: [ObjectId: SKNode] = [:]
+        var currentMonth: Date?
+        var onRockTapped: ((ObjectId) -> Void)?
     
     override func didMove(to view: SKView) {
         setupPhysicsWorld()
@@ -57,46 +59,58 @@ class RockStackScene: SKScene {
     }
 
     func setupRocksFromDiaries(_ diaries: [DiaryTable], for month: Date) {
-        self.currentMonth = month
-        // 기존의 모든 Rock 노드를 제거
-        for node in rockNodes {
-            node.removeFromParent()
+            self.currentMonth = month
+            // 기존의 모든 Rock 노드를 제거
+            for node in rockNodes.values {
+                node.removeFromParent()
+            }
+            rockNodes.removeAll()
+            
+            for diary in diaries {
+                addRock(for: diary)
+            }
         }
-        rockNodes.removeAll()
-        
-        for diary in diaries {
-            addRock(for: diary)
+    private func addRock(for diary: DiaryTable) {
+            guard let rock = Rock(rawValue: diary.feeling) else { return }
+            let randomPosition = CGPoint(
+                x: CGFloat.random(in: 50...300),
+                y: CGFloat.random(in: 100...450)
+            )
+            let rockNode = createBall(at: randomPosition, rockType: rock, diaryId: diary.id)
+            rockNodes[diary.id] = rockNode
+            addChild(rockNode)
         }
-    }
-    func addRock(for diary: DiaryTable) {
-        guard let rock = Rock(rawValue: diary.feeling) else { return }
-        let randomPosition = CGPoint(
-            x: CGFloat.random(in: 50...300),
-            y: CGFloat.random(in: 150...450)
-        )
-        let rockNode = createBall(at: randomPosition, rockType: rock)
-        rockNodes.append(rockNode)
-        addChild(rockNode)
-    }
-    private func createBall(at position: CGPoint, rockType: Rock) -> SKNode {
-        let ball = SKSpriteNode(imageNamed: rockType.rawValue)
-        ball.position = position
-        ball.size = CGSize(width: 60, height: 60)
-        ball.name = "draggable"
         
-        let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
-        ball.physicsBody = physicsBody
-        setupBallPhysics(for: ball)
-        return ball
-    }
-
+        private func createBall(at position: CGPoint, rockType: Rock, diaryId: ObjectId) -> SKNode {
+            let ball = SKSpriteNode(imageNamed: rockType.rawValue)
+            ball.position = position
+            ball.size = CGSize(width: 60, height: 60)
+            ball.name = diaryId.stringValue
+            
+            let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
+            ball.physicsBody = physicsBody
+            setupBallPhysics(for: ball)
+            return ball
+        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            guard let touch = touches.first else { return }
+            let location = touch.location(in: self)
+            let touchedNodes = nodes(at: location)
+            
+            for node in touchedNodes {
+                if let name = node.name, let diaryId = try? ObjectId(string: name) {
+                    onRockTapped?(diaryId)
+                    break
+                }
+            }
+        }
     func addNewRock(_ diary: DiaryTable) {
         guard let rock = Rock(rawValue: diary.feeling) else { return }
         let position = CGPoint(
             x: CGFloat.random(in: 50...300),
             y: size.height - 50 // 화면 상단에서 시작
         )
-        let rockNode = createBall(at: position, rockType: rock)
+        let rockNode = createBall(at: position, rockType: rock, diaryId: diary.id)
         rockNode.alpha = 0
         rockNode.physicsBody?.isDynamic = false
         
@@ -106,7 +120,7 @@ class RockStackScene: SKScene {
         }
         let sequence = SKAction.sequence([fadeIn, enableGravity])
         rockNode.run(sequence)
-        rockNodes.append(rockNode)
+        rockNodes.updateValue(rockNode, forKey: diary.id)
     }
 }
 

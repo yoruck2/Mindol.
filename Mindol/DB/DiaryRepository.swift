@@ -82,4 +82,10 @@ extension DiaryRepository {
         
         return Array(diaryList.filter("date BETWEEN {%@, %@}", startOfMonth, endOfMonth))
     }
+    
+    
+    func getDiary(by id: ObjectId) -> DiaryTable? {
+        return realm.object(ofType: DiaryTable.self, forPrimaryKey: id)
+    }
+    
 }

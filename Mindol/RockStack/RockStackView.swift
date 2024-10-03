@@ -10,8 +10,8 @@ import SpriteKit
 import RealmSwift
 
 struct RockStackView: View {
-    @StateObject private var diaryRepository = DiaryRepository.shared
     @EnvironmentObject var sceneWrapper: SceneWrapper
+    @EnvironmentObject var diaryRepository: DiaryRepository
     @StateObject private var flipCardPresenter = FlipCardPresenter()
     @State private var navigationPath = NavigationPath()
     @State private var selectedDate = Date()
@@ -33,7 +33,7 @@ struct RockStackView: View {
                 }) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 44, height: 44)
                         .foregroundColor(.blue)
                 }
                 .padding(.bottom, 20)
@@ -41,11 +41,16 @@ struct RockStackView: View {
             .navigationBarHidden(true)
         }
         .fullScreenCover(isPresented: $showingEmotionSelection) {
-                    EmotionSelectionView(selectedRock: $selectedRock)
-                }
-                .fullScreenCover(item: $selectedRock) { rock in
-                    CreateDiaryView(selectedRock: rock.rawValue, date: selectedDate, sceneWrapper: sceneWrapper)
-                }
+            EmotionSelectionView(selectedRock: $selectedRock)
+        }
+        .fullScreenCover(item: $selectedRock) { rock in
+            CreateDiaryView(selectedRock: rock.rawValue, date: selectedDate, sceneWrapper: sceneWrapper)
+        }
+        .sheet(item: $sceneWrapper.selectedDiaryId) { diaryId in
+            if let diary = diaryRepository.getDiary(by: diaryId) {
+                ReadDiaryView(diary: diary)
+            }
+        }
     }
     
     private func checkAndProceedToNewDiary() {
@@ -81,8 +86,11 @@ struct RockStackView: View {
         return formatter.string(from: sceneWrapper.currentMonth)
     }
     
-    private func moveMonth(by offset: Int) {
-        sceneWrapper.moveMonth(by: offset)
-    }
+//    private func moveMonth(by offset: Int) {
+//        sceneWrapper.moveMonth(by: offset)
+//    }
+    
+}
+extension ObjectId: Identifiable {
     
 }

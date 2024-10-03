@@ -41,20 +41,3 @@ struct RowStackView: View {
         }
     }
 }
-//struct DiaryTable1 {
-//    var feeling: String
-//    var date: Date
-//    var contents: Contents1?
-//}
-//
-//struct Contents1 {
-//    var text: String?
-//    var photo: String?
-//}
-//
-//var diaryList = [
-//    DiaryTable1(feeling: "star", date: Date()),
-//    DiaryTable1(feeling: "star", date: Date(),contents: Contents1(text: "Sdf")),
-//    DiaryTable1(feeling: "person", date: Date())
-//]
-//

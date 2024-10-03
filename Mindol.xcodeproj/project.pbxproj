@@ -13,7 +13,6 @@
 		849053362CA9910F0089DD08 /* DiaryTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053352CA9910F0089DD08 /* DiaryTable.swift */; };
 		849053392CA991200089DD08 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 849053382CA991200089DD08 /* RealmSwift */; };
 		8490533C2CA9912A0089DD08 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 8490533B2CA9912A0089DD08 /* FSCalendar */; };
-		8490533E2CA991430089DD08 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490533D2CA991430089DD08 /* Repository.swift */; };
 		8490534A2CA991AB0089DD08 /* EmotionSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053492CA991AB0089DD08 /* EmotionSelectionView.swift */; };
 		8490534D2CA991C40089DD08 /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490534C2CA991C40089DD08 /* Rock.swift */; };
 		8490534F2CA991DC0089DD08 /* CreateDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */; };
@@ -41,7 +40,6 @@
 		8490532B2CA990E30089DD08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8490532E2CA990E30089DD08 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		849053352CA9910F0089DD08 /* DiaryTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTable.swift; sourceTree = "<group>"; };
-		8490533D2CA991430089DD08 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		849053492CA991AB0089DD08 /* EmotionSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionSelectionView.swift; sourceTree = "<group>"; };
 		8490534C2CA991C40089DD08 /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDiaryView.swift; sourceTree = "<group>"; };
@@ -96,11 +94,11 @@
 		849053262CA990E20089DD08 /* Mindol */ = {
 			isa = PBXGroup;
 			children = (
+				8490534C2CA991C40089DD08 /* Rock.swift */,
 				849053552CA9AEF40089DD08 /* MindolApp.swift */,
 				84B7521D2CADB1380015B327 /* MainTabView.swift */,
-				849053292CA990E20089DD08 /* DiaryListView.swift */,
-				8490534C2CA991C40089DD08 /* Rock.swift */,
 				849053502CA995430089DD08 /* DB */,
+				84B752282CAF26730015B327 /* DiaryList */,
 				849053612CAA3EA80089DD08 /* RockStack */,
 				849053442CA9917B0089DD08 /* DiaryCRUD */,
 				84B7521F2CADBA750015B327 /* Component */,
@@ -125,7 +123,6 @@
 			children = (
 				849053492CA991AB0089DD08 /* EmotionSelectionView.swift */,
 				8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */,
-				8490535A2CA9B7C70089DD08 /* RowStackView.swift */,
 				8490535F2CA9D6D70089DD08 /* ReadDiaryView.swift */,
 			);
 			path = DiaryCRUD;
@@ -136,7 +133,6 @@
 			children = (
 				849053352CA9910F0089DD08 /* DiaryTable.swift */,
 				849053512CA99DEA0089DD08 /* DiaryRepository.swift */,
-				8490533D2CA991430089DD08 /* Repository.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -176,6 +172,15 @@
 				84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		84B752282CAF26730015B327 /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				849053292CA990E20089DD08 /* DiaryListView.swift */,
+				8490535A2CA9B7C70089DD08 /* RowStackView.swift */,
+			);
+			path = DiaryList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,7 +282,6 @@
 				84B752272CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift in Sources */,
 				849053632CAA3EC60089DD08 /* RockStackScene.swift in Sources */,
 				849053602CA9D6D70089DD08 /* ReadDiaryView.swift in Sources */,
-				8490533E2CA991430089DD08 /* Repository.swift in Sources */,
 				84B7521C2CAD47570015B327 /* RockStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
