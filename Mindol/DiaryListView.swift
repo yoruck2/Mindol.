@@ -10,6 +10,8 @@ import RealmSwift
 
 struct DirayListView: View {
     @StateObject private var realm = DiaryRepository.shared
+    @EnvironmentObject var sceneWrapper: SceneWrapper
+    
     @State private var showingEmotionSelection = false
     @State private var selectedRock: Rock?
     @ObservedResults(DiaryTable.self)
@@ -19,7 +21,7 @@ struct DirayListView: View {
         NavigationStack {
             ScrollView {
                 ForEach(diaryList) { diary in
-                    NavigationLink(destination: ReadDiaryView(diary: diary)) {
+                    NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper)) {
                         RowStackView(diary: diary)
                     }
                     .tint(.black)
@@ -36,30 +38,10 @@ struct DirayListView: View {
                 EmotionSelectionView(selectedRock: $selectedRock)
             }
             .fullScreenCover(item: $selectedRock) { rock in
-                CreateDiaryView(selectedRock: rock.rawValue, date: Date())
+                CreateDiaryView(selectedRock: rock.rawValue, date: Date(), sceneWrapper: sceneWrapper)
             }
         }
     }
 }
 
 
-#Preview {
-    MindolTabView()
-}
-struct MindolTabView: View {
-  var body: some View {
-    TabView {
-        DirayListView()
-        .tabItem {
-          Image(systemName: "1.square.fill")
-          Text("First")
-        }
-      Text("Another Tab")
-        .tabItem {
-          Image(systemName: "2.square.fill")
-          Text("Second")
-        }
-    }
-    .font(.headline)
-  }
-}

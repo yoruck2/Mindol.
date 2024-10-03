@@ -9,12 +9,23 @@ import SwiftUI
 
 @main
 struct MindolApp: App {
+    @StateObject private var diaryRepository = DiaryRepository()
+    @StateObject private var sceneWrapper: SceneWrapper
+    
+    init() {
+        let repo = DiaryRepository()
+        _sceneWrapper = StateObject(wrappedValue: SceneWrapper(diaryRepository: repo))
+        
+    }
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MindolTabView()
+                .environmentObject(sceneWrapper)
+                .environmentObject(diaryRepository)
         }
     }
 }
 #Preview {
-    MainView()
+    MindolTabView()
 }

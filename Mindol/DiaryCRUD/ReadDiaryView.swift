@@ -11,9 +11,11 @@ import RealmSwift
 struct ReadDiaryView: View {
     @ObservedRealmObject var diary: DiaryTable
     @ObservedObject var realm = DiaryRepository.shared
+    @EnvironmentObject var sceneWrapper: SceneWrapper
     @State private var showingEditView = false
     @Environment(\.dismiss) private var dismiss
     @State private var showingDeleteAlert = false
+    
 
     var body: some View {
         ScrollView {
@@ -64,7 +66,7 @@ struct ReadDiaryView: View {
             CreateDiaryView(selectedRock: diary.feeling,
                             date: diary.date,
                             diaryText: diary.contents?.text ?? "",
-                            editingDiary: diary)
+                            editingDiary: diary, sceneWrapper: sceneWrapper)
             .onAppear(perform : UIApplication.shared.hideKeyboard)
         }
     }
