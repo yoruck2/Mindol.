@@ -8,16 +8,23 @@
 import Foundation
 
 extension Date {
+    static let formatter = DateFormatter()
+    
     var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: self)
+        
+        Date.formatter.dateFormat = "yyyy년 M월 d일"
+        return Date.formatter.string(from: self)
     }
     
     var koreanDayOfWeek: String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "EEEE"
-        return formatter.string(from: self)
+        
+        Date.formatter.locale = Locale(identifier: "ko_KR")
+        Date.formatter.dateFormat = "EEEE"
+        return Date.formatter.string(from: self)
+    }
+    
+    var month: Int {
+        Date.formatter.dateFormat = "M"
+        return Int(Date.formatter.string(from: self)) ?? .zero
     }
 }
