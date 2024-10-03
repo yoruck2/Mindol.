@@ -14,7 +14,6 @@ class DiaryRepository: ObservableObject {
 //    let realm = try! Realm()
     @ObservedResults(DiaryTable.self)
     var diaryList
-//    @Published var diaries: [DiaryTable] = []
     
     let realm: Realm
         
@@ -22,16 +21,11 @@ class DiaryRepository: ObservableObject {
             self.realm = realm
         }
     
-//    func fetchDiaries() {
-//        diaryTable = realm.objects(DiaryTable.self)
-//    }
-    
     func createDiary(_ diary: DiaryTable) {
         do {
             try realm.write {
                 realm.add(diary, update: .modified)
             }
-//            fetchDiaries()
         } catch {
             print("Error creating diary: \(error)")
         }
@@ -42,7 +36,6 @@ class DiaryRepository: ObservableObject {
             try realm.write {
                 realm.add(diary, update: .modified)
             }
-//            fetchDiaries()
         } catch {
             print("Error updating diary: \(error)")
         }
@@ -55,7 +48,6 @@ class DiaryRepository: ObservableObject {
                     realm.delete(diaryToDelete)
                 }
             }
-//            fetchDiaries()
         } catch {
             print("Error deleting diary: \(error)")
         }
@@ -87,5 +79,12 @@ extension DiaryRepository {
     func getDiary(by id: ObjectId) -> DiaryTable? {
         return realm.object(ofType: DiaryTable.self, forPrimaryKey: id)
     }
+    func getDiaryForDate(_ date: Date) -> DiaryTable? {
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+            
+            return diaryList.filter("date >= %@ AND date < %@", startOfDay, endOfDay).first
+        }
     
 }

@@ -8,7 +8,6 @@
 import RealmSwift
 import Foundation
 
-
 final class DiaryTable: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var feeling: String
