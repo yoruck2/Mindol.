@@ -76,14 +76,14 @@ struct CalendarView: UIViewRepresentable {
         }
 
         func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-            // 여기서 각 셀의 크기나 스타일을 조절할 수 있습니다.
-            cell.contentView.frame = cell.bounds.insetBy(dx: 1, dy: 1)  // 예: 각 셀에 1포인트의 여백 추가
+            
+            cell.contentView.frame = cell.bounds.insetBy(dx: 1, dy: 1)
         }
         func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
             if parent.diaryRepository.getDiaryForDate(date) != nil {
                 return .clear  // 일기가 있는 날짜의 텍스트 색상을 투명하게 설정
             }
-            return nil  // 기본 색상 사용
+            return nil
         }
     }
 }

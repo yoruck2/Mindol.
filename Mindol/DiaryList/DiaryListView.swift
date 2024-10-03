@@ -33,8 +33,8 @@ struct DirayListView: View {
             }
             ScrollView {
                 if !diaryList.isEmpty {
-                
-                    ForEach(diaryList) { diary in
+                    let decendingDateList = diaryList.sorted(byKeyPath: "date", ascending: false)
+                    ForEach(decendingDateList) { diary in
                         NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper)) {
                             RowStackView(diary: diary)
                         }
