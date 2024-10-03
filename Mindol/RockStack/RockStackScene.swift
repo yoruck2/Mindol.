@@ -28,25 +28,8 @@ class RockStackScene: SKScene {
         startMotionUpdates()
     }
     
-    private func setupPhysicsWorld() {
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        physicsWorld.gravity = CGVector(dx: 0, dy: -5)
-        physicsWorld.speed = 1.0
-        physicsWorld.contactDelegate = self
-    }
-    
     private func setupBackground() {
         backgroundColor = RockStackSceneConfig.backgroundColor
-    }
-    
-    private func setupFloor() {
-        let floorNode = SKNode()
-        floorNode.position = CGPoint(x: size.width / 2, y: 0)
-        floorNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 1))
-        floorNode.physicsBody?.isDynamic = false
-        floorNode.physicsBody?.friction = 0.4
-        floorNode.physicsBody?.restitution = 0.2
-        addChild(floorNode)
     }
     
     func startMotionUpdates() {
@@ -59,6 +42,94 @@ class RockStackScene: SKScene {
         }
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        updateBallPositionsAndVelocities()
+    }
+    
+    private func updateBallPositionsAndVelocities() {
+        enumerateChildNodes(withName: "draggable") { (node, _) in
+            guard let ball = node as? SKSpriteNode,
+                  let physicsBody = ball.physicsBody else { return }
+            
+            self.constrainBallPosition(ball)
+            self.limitBallSpeed(physicsBody)
+        }
+    }
+
+    func setupRocksFromDiaries(_ diaries: [DiaryTable], for month: Date) {
+        self.currentMonth = month
+        // 기존의 모든 Rock 노드를 제거
+        for node in rockNodes {
+            node.removeFromParent()
+        }
+        rockNodes.removeAll()
+        
+        for diary in diaries {
+            addRock(for: diary)
+        }
+    }
+    func addRock(for diary: DiaryTable) {
+        guard let rock = Rock(rawValue: diary.feeling) else { return }
+        let randomPosition = CGPoint(
+            x: CGFloat.random(in: 50...300),
+            y: CGFloat.random(in: 150...450)
+        )
+        let rockNode = createBall(at: randomPosition, rockType: rock)
+        rockNodes.append(rockNode)
+        addChild(rockNode)
+    }
+    private func createBall(at position: CGPoint, rockType: Rock) -> SKNode {
+        let ball = SKSpriteNode(imageNamed: rockType.rawValue)
+        ball.position = position
+        ball.size = CGSize(width: 60, height: 60)
+        ball.name = "draggable"
+        
+        let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
+        ball.physicsBody = physicsBody
+        setupBallPhysics(for: ball)
+        return ball
+    }
+
+    func addNewRock(_ diary: DiaryTable) {
+        guard let rock = Rock(rawValue: diary.feeling) else { return }
+        let position = CGPoint(
+            x: CGFloat.random(in: 50...300),
+            y: size.height - 50 // 화면 상단에서 시작
+        )
+        let rockNode = createBall(at: position, rockType: rock)
+        rockNode.alpha = 0
+        rockNode.physicsBody?.isDynamic = false
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 5.0)
+        let enableGravity = SKAction.run { [weak rockNode] in
+            rockNode?.physicsBody?.isDynamic = true
+        }
+        let sequence = SKAction.sequence([fadeIn, enableGravity])
+        rockNode.run(sequence)
+        rockNodes.append(rockNode)
+    }
+}
+
+extension RockStackScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        handleCollision(contact)
+    }
+    private func setupPhysicsWorld() {
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+        physicsWorld.speed = 1.0
+        physicsWorld.contactDelegate = self
+    }
+    
+    private func setupFloor() {
+        let floorNode = SKNode()
+        floorNode.position = CGPoint(x: size.width / 2, y: 0)
+        floorNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 1))
+        floorNode.physicsBody?.isDynamic = false
+        floorNode.physicsBody?.friction = 0.4
+        floorNode.physicsBody?.restitution = 0.2
+        addChild(floorNode)
+    }
     func updateGravity(with accelerometerData: CMAccelerometerData) {
         let acceleration = accelerometerData.acceleration
         let gravityX = acceleration.x * 9.8
@@ -96,20 +167,6 @@ class RockStackScene: SKScene {
         return CGPoint(x: x, y: y)
     }
     
-    override func update(_ currentTime: TimeInterval) {
-        updateBallPositionsAndVelocities()
-    }
-    
-    private func updateBallPositionsAndVelocities() {
-        enumerateChildNodes(withName: "draggable") { (node, _) in
-            guard let ball = node as? SKSpriteNode,
-                  let physicsBody = ball.physicsBody else { return }
-            
-            self.constrainBallPosition(ball)
-            self.limitBallSpeed(physicsBody)
-        }
-    }
-    
     private func constrainBallPosition(_ ball: SKSpriteNode) {
         let constrainedPosition = self.constrainPosition(ball.position, for: ball)
         if constrainedPosition != ball.position {
@@ -137,72 +194,6 @@ class RockStackScene: SKScene {
             physicsBody.velocity = .zero
             physicsBody.angularVelocity = 0
         }
-    }
-    
-    func setupRocksFromDiaries(_ diaries: [DiaryTable], for month: Date) {
-        self.currentMonth = month
-        // 기존의 모든 Rock 노드를 제거
-        for node in rockNodes {
-            node.removeFromParent()
-        }
-        rockNodes.removeAll()
-        let filteredDiaries = diaries.filter { Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month) }
-        for diary in filteredDiaries {
-            addInitialRock(diary)
-        }
-    }
-    
-    private func addInitialRock(_ diary: DiaryTable) {
-        guard let rock = Rock(rawValue: diary.feeling) else { return }
-        let randomPosition = CGPoint(
-            x: CGFloat.random(in: 50...300),
-            y: CGFloat.random(in: 100...450)
-        )
-        let rockNode = createBall(at: randomPosition, rockType: rock)
-        rockNode.alpha = 1
-        rockNode.physicsBody?.isDynamic = true
-        rockNodes.append(rockNode)
-    }
-    
-    func addNewRock(_ diary: DiaryTable) {
-        guard Rock(rawValue: diary.feeling) != nil else {
-            print("돌생성 에러")
-            return
-        }
-        print("돌생성: \(diary.id)")
-        guard let rock = Rock(rawValue: diary.feeling) else { return }
-        let position = CGPoint(
-            x: CGFloat.random(in: 50...300),
-            y: size.height - 50 // 화면 상단에서 시작
-        )
-        let rockNode = createBall(at: position, rockType: rock)
-        rockNode.alpha = 0
-        rockNode.physicsBody?.isDynamic = false
-        rockNodes.append(rockNode)
-        
-        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
-        let enableGravity = SKAction.run { [weak rockNode] in
-            rockNode?.physicsBody?.isDynamic = true
-        }
-        let sequence = SKAction.sequence([fadeIn, enableGravity])
-        rockNode.run(sequence)
-    }
-    
-    private func createBall(at position: CGPoint, rockType: Rock) -> SKNode {
-        let ball = SKSpriteNode(imageNamed: rockType.rawValue)
-        ball.position = position
-        ball.size = CGSize(width: 60, height: 60)
-        ball.name = "draggable"
-        
-        let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
-        ball.physicsBody = physicsBody
-        addChild(ball)
-        return ball
-    }
-}
-extension RockStackScene: SKPhysicsContactDelegate {
-    func didBegin(_ contact: SKPhysicsContact) {
-        handleCollision(contact)
     }
     
     private func handleCollision(_ contact: SKPhysicsContact) {
