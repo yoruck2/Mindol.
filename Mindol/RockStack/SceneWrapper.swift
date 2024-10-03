@@ -43,11 +43,11 @@ class SceneWrapper: ObservableObject {
     }
     
     func addSingleRock(_ diary: DiaryTable) {
-        if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
-            scene?.addNewRock(diary)
-            objectWillChange.send()
-        }
-    }
+                if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
+                    scene?.addNewRock(diary)
+                    objectWillChange.send()
+                }
+            }
     
     private func updateScene() {
         let diaries = diaryRepository.getDiariesForCurrentMonth(date: currentMonth)

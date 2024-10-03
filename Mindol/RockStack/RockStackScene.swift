@@ -7,6 +7,7 @@
 
 import SpriteKit
 import CoreMotion
+// TODO: ObjectId.stringValue로 저장하는것을 고려해보기
 import RealmSwift
 
 struct RockStackSceneConfig {
@@ -20,8 +21,8 @@ struct RockStackSceneConfig {
 class RockStackScene: SKScene {
     private let motionManager = CMMotionManager()
     private var rockNodes: [ObjectId: SKNode] = [:]
-        var currentMonth: Date?
-        var onRockTapped: ((ObjectId) -> Void)?
+    var currentMonth: Date?
+    var onRockTapped: ((ObjectId) -> Void)?
     
     override func didMove(to view: SKView) {
         setupPhysicsWorld()
@@ -43,87 +44,88 @@ class RockStackScene: SKScene {
             }
         }
     }
+    // draggable??
+    //    override func update(_ currentTime: TimeInterval) {
+    //        enumerateChildNodes(withName: "draggable") { (node, _) in
+    //            guard let ball = node as? SKSpriteNode,
+    //                  let physicsBody = ball.physicsBody else { return }
+    //
+    //            self.constrainBallPosition(ball)
+    //            self.limitBallSpeed(physicsBody)
+    //        }
+    //    }
     
-    override func update(_ currentTime: TimeInterval) {
-        updateBallPositionsAndVelocities()
-    }
-    
-    private func updateBallPositionsAndVelocities() {
-        enumerateChildNodes(withName: "draggable") { (node, _) in
-            guard let ball = node as? SKSpriteNode,
-                  let physicsBody = ball.physicsBody else { return }
-            
-            self.constrainBallPosition(ball)
-            self.limitBallSpeed(physicsBody)
-        }
-    }
-
     func setupRocksFromDiaries(_ diaries: [DiaryTable], for month: Date) {
-            self.currentMonth = month
-            // 기존의 모든 Rock 노드를 제거
-            for node in rockNodes.values {
-                node.removeFromParent()
-            }
-            rockNodes.removeAll()
-            
-            for diary in diaries {
-                addRock(for: diary)
-            }
+        self.currentMonth = month
+        // 기존의 모든 Rock 노드를 제거
+        for node in rockNodes.values {
+            node.removeFromParent()
         }
-    private func addRock(for diary: DiaryTable) {
-            guard let rock = Rock(rawValue: diary.feeling) else { return }
-            let randomPosition = CGPoint(
-                x: CGFloat.random(in: 50...300),
-                y: CGFloat.random(in: 100...450)
-            )
-            let rockNode = createBall(at: randomPosition, rockType: rock, diaryId: diary.id)
-            rockNodes[diary.id] = rockNode
-            addChild(rockNode)
-        }
+        rockNodes.removeAll()
         
-        private func createBall(at position: CGPoint, rockType: Rock, diaryId: ObjectId) -> SKNode {
-            let ball = SKSpriteNode(imageNamed: rockType.rawValue)
-            ball.position = position
-            ball.size = CGSize(width: 60, height: 60)
-            ball.name = diaryId.stringValue
-            
-            let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
-            ball.physicsBody = physicsBody
-            setupBallPhysics(for: ball)
-            return ball
+        for diary in diaries {
+            addRock(for: diary)
         }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-            let touchedNodes = nodes(at: location)
-            
-            for node in touchedNodes {
-                if let name = node.name, let diaryId = try? ObjectId(string: name) {
-                    onRockTapped?(diaryId)
-                    break
-                }
-            }
-        }
+    }
+    func addRock(for diary: DiaryTable) {
+        guard let rock = Rock(rawValue: diary.feeling) else { return }
+        let randomPosition = CGPoint(
+            x: CGFloat.random(in: 50...300),
+            y: CGFloat.random(in: 100...450)
+        )
+        let rockNode = createBall(at: randomPosition, rockType: rock, diaryId: diary.id)
+        rockNodes[diary.id] = rockNode
+        addChild(rockNode)
+    }
+    // addRock with animation
     func addNewRock(_ diary: DiaryTable) {
         guard let rock = Rock(rawValue: diary.feeling) else { return }
         let position = CGPoint(
             x: CGFloat.random(in: 50...300),
-            y: size.height - 50 // 화면 상단에서 시작
+            y: size.height - 50
         )
         let rockNode = createBall(at: position, rockType: rock, diaryId: diary.id)
+        
         rockNode.alpha = 0
         rockNode.physicsBody?.isDynamic = false
         
-        let fadeIn = SKAction.fadeIn(withDuration: 5.0)
+        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
         let enableGravity = SKAction.run { [weak rockNode] in
             rockNode?.physicsBody?.isDynamic = true
         }
         let sequence = SKAction.sequence([fadeIn, enableGravity])
         rockNode.run(sequence)
         rockNodes.updateValue(rockNode, forKey: diary.id)
+        addChild(rockNode)
+        
     }
+    private func createBall(at position: CGPoint, rockType: Rock, diaryId: ObjectId) -> SKNode {
+        let ball = SKSpriteNode(imageNamed: rockType.rawValue)
+        ball.position = position
+        ball.size = CGSize(width: 60, height: 60)
+        ball.name = diaryId.stringValue
+        
+        let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
+        ball.physicsBody = physicsBody
+        setupBallPhysics(for: ball)
+        return ball
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let touchedNodes = nodes(at: location)
+        
+        for node in touchedNodes {
+            if let name = node.name, let diaryId = try? ObjectId(string: name) {
+                onRockTapped?(diaryId)
+                break
+            }
+        }
+    }
+    
 }
 
+// MARK: physics settings
 extension RockStackScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         handleCollision(contact)
