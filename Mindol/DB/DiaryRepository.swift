@@ -11,14 +11,16 @@ import Combine
 
 class DiaryRepository: ObservableObject {
     static let shared = DiaryRepository()
-    let realm = try! Realm()
+//    let realm = try! Realm()
     @ObservedResults(DiaryTable.self)
     var diaryList
 //    @Published var diaries: [DiaryTable] = []
     
-    private init() {
-        print(realm.configuration.fileURL ?? "")
-    }
+    let realm: Realm
+        
+        init(realm: Realm = try! Realm()) {
+            self.realm = realm
+        }
     
 //    func fetchDiaries() {
 //        diaryTable = realm.objects(DiaryTable.self)
@@ -57,5 +59,27 @@ class DiaryRepository: ObservableObject {
         } catch {
             print("Error deleting diary: \(error)")
         }
+    }
+}
+
+extension DiaryRepository {
+    
+    func hasDiaryForDate(_ date: Date) -> Bool {
+        let realm = try! Realm()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        
+        let predicate = NSPredicate(format: "date >= %@ AND date < %@", startOfDay as NSDate, endOfDay as NSDate)
+        return realm.objects(DiaryTable.self).filter(predicate).count > 0
+    }
+    
+    func getDiariesForCurrentMonth(date: Date) -> [DiaryTable] {
+        let calendar = Calendar.current
+        
+        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date))!
+        let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+        
+        return Array(diaryList.filter("date BETWEEN {%@, %@}", startOfMonth, endOfMonth))
     }
 }
