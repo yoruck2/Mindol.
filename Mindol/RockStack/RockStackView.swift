@@ -85,12 +85,4 @@ struct RockStackView: View {
         formatter.dateFormat = "yyyy MMMM"
         return formatter.string(from: sceneWrapper.currentMonth)
     }
-    
-//    private func moveMonth(by offset: Int) {
-//        sceneWrapper.moveMonth(by: offset)
-//    }
-    
-}
-extension ObjectId: Identifiable {
-    
 }

@@ -19,12 +19,27 @@ struct DirayListView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                ForEach(diaryList) { diary in
-                    NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper)) {
-                        RowStackView(diary: diary)
+            if diaryList.isEmpty {
+                VStack {
+                    Spacer()
+                    VStack(spacing: 20) {
+                        Image(.sad)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 65, height: 65)
+                        Text("기억할 일기가 없습니다")
                     }
-                    .tint(.black)
+                }
+            }
+            ScrollView {
+                if !diaryList.isEmpty {
+                
+                    ForEach(diaryList) { diary in
+                        NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper)) {
+                            RowStackView(diary: diary)
+                        }
+                        .tint(.black)
+                    }
                 }
             }
             .toolbar {

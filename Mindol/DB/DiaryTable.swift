@@ -8,6 +8,7 @@
 import RealmSwift
 import Foundation
 
+
 final class DiaryTable: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var feeling: String
@@ -27,3 +28,4 @@ class Contents: EmbeddedObject {
     @Persisted var photo: String?
 }
 
+extension ObjectId: Identifiable {}

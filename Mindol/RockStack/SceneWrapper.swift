@@ -53,11 +53,4 @@ class SceneWrapper: ObservableObject {
         let diaries = diaryRepository.getDiariesForCurrentMonth(date: currentMonth)
         scene?.setupRocksFromDiaries(diaries, for: currentMonth)
     }
-    
-//    func addSingleRock(_ diary: DiaryTable) {
-//            if Calendar.current.isDate(diary.date, equalTo: currentMonth, toGranularity: .month) {
-//                scene?.addRock(for: diary)
-//                objectWillChange.send()  // SwiftUI에게 뷰를 업데이트하도록 알림
-//            }
-//        }
 }
