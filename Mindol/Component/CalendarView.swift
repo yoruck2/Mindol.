@@ -25,16 +25,14 @@ struct CalendarView: UIViewRepresentable {
         calendar.dataSource = context.coordinator
         calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        calendar.appearance.titleSelectionColor = .black
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 20)
         calendar.appearance.eventOffset = CGPoint(x: 0, y: -7)
-        calendar.rowHeight = 40
         calendar.swipeToChooseGesture.isEnabled = false
         calendar.scrollEnabled = true
         calendar.scrollDirection = .vertical
-        
         calendarReference = calendar
-        
         
         // 이전/이후 달의 날짜 숨기기
         calendar.placeholderType = .none
@@ -69,24 +67,7 @@ struct CalendarView: UIViewRepresentable {
         }
         func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
             let newDate = calendar.currentPage
-            // 현재 월 이후로는 이동 불가
-            if newDate > Date() {
-                let currentMonth = Calendar.current.startOfMonth(for: Date())
-                calendar.setCurrentPage(currentMonth, animated: true)
-                parent.currentMonth = currentMonth
-            } else {
-                parent.currentMonth = newDate
-            }
-            
-            // 새로운 월의 첫 날을 선택하되, 현재 날짜를 넘지 않도록 함
-            let newSelectedDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: newDate)) ?? newDate
-            let safeSelectedDate = min(newSelectedDate, Date())
-            
-            // 선택된 날짜가 변경되었을 때만 업데이트
-            if !Calendar.current.isDate(parent.selectedDate, inSameDayAs: safeSelectedDate) {
-                parent.selectedDate = safeSelectedDate
-                calendar.select(safeSelectedDate)
-            }
+            parent.currentMonth = newDate
         }
         
         
@@ -131,15 +112,13 @@ struct CalendarView: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
             return date <= Date()
         }
-        
     }
-    
 }
 
 class CustomCalendarCell: FSCalendarCell {
     var rockImageView: UIImageView!
     
-    override init!(frame: CGRect) {
+    override init?(frame: CGRect) {
         super.init(frame: frame)
         
         rockImageView = UIImageView()
@@ -153,7 +132,6 @@ class CustomCalendarCell: FSCalendarCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         rockImageView.frame = contentView.bounds.insetBy(dx: 5, dy: 5)
     }
 }
