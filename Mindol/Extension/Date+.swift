@@ -10,8 +10,13 @@ import Foundation
 extension Date {
     static let formatter = DateFormatter()
     
-    var formattedDate: String {
-        
+    var formattedMonth: String {
+        Date.formatter.locale = Locale(identifier: "en_US")
+        Date.formatter.dateFormat = "yyyy\nMMMM"
+        return Date.formatter.string(from: self)
+    }
+    
+    var formattedKoreanDate: String {
         Date.formatter.dateFormat = "yyyy년 M월 d일"
         return Date.formatter.string(from: self)
     }

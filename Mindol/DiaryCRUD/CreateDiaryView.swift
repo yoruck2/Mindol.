@@ -44,7 +44,7 @@ struct CreateDiaryView: View {
                         .scaledToFit()
                         .frame(height: 70)
                     
-                    Text("\(date.formattedDate)")
+                    Text("\(date.formattedKoreanDate)")
                         .font(.headline)
                     
                     Text(date.koreanDayOfWeek)

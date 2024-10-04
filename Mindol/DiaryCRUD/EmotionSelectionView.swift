@@ -14,7 +14,7 @@ struct EmotionSelectionView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(Date().formattedDate)
+                Text(Date().formattedKoreanDate)
                 Text("오늘의 감정을 선택해주세요")
                     .padding(.bottom, 40)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 20) {

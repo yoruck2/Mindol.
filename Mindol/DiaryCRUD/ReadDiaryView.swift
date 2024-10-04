@@ -24,7 +24,7 @@ struct ReadDiaryView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 70)
-                Text(diary.date.formattedDate)
+                Text(diary.date.formattedKoreanDate)
                     .font(.headline)
                 Text(diary.date.koreanDayOfWeek)
                     .font(.subheadline)
