@@ -13,7 +13,11 @@ struct CalendarView: UIViewRepresentable {
     @Binding var selectedDate: Date
     @Binding var currentMonth: Date
     @EnvironmentObject var diaryRepository: DiaryRepository
-
+    @Binding var showCreateDiary: Bool
+    @Binding var showReadDiary: Bool
+    @Binding var selectedDiary: DiaryTable?
+    @Binding var calendarReference: FSCalendar?
+    
     
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
@@ -23,8 +27,14 @@ struct CalendarView: UIViewRepresentable {
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 20)
+        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7)
+        calendar.rowHeight = 40
         calendar.swipeToChooseGesture.isEnabled = false
-        calendar.scrollEnabled = false
+        calendar.scrollEnabled = true
+        calendar.scrollDirection = .vertical
+        
+        calendarReference = calendar
+        
         
         // 이전/이후 달의 날짜 숨기기
         calendar.placeholderType = .none
@@ -35,30 +45,66 @@ struct CalendarView: UIViewRepresentable {
         
         // 날짜 셀 커스터마이즈
         calendar.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
-        
+        calendar.scrollEnabled = true
+        // 캘린더 스크롤 방향 지정
+        calendar.scrollDirection = .vertical
         return calendar
     }
-
+    
     func updateUIView(_ uiView: FSCalendar, context: Context) {
-        uiView.setCurrentPage(currentMonth, animated: true)
-        uiView.reloadData()
+        if !Calendar.current.isDate(uiView.currentPage, equalTo: currentMonth, toGranularity: .month) {
+            uiView.setCurrentPage(currentMonth, animated: true)
+        }
     }
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
         var parent: CalendarView
-
+        
         init(_ parent: CalendarView) {
             self.parent = parent
         }
-        // 날짜를 선택했을 때 할일을 지정
-        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            parent.selectedDate = date
+        func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+            let newDate = calendar.currentPage
+            // 현재 월 이후로는 이동 불가
+            if newDate > Date() {
+                let currentMonth = Calendar.current.startOfMonth(for: Date())
+                calendar.setCurrentPage(currentMonth, animated: true)
+                parent.currentMonth = currentMonth
+            } else {
+                parent.currentMonth = newDate
+            }
+            
+            // 새로운 월의 첫 날을 선택하되, 현재 날짜를 넘지 않도록 함
+            let newSelectedDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: newDate)) ?? newDate
+            let safeSelectedDate = min(newSelectedDate, Date())
+            
+            // 선택된 날짜가 변경되었을 때만 업데이트
+            if !Calendar.current.isDate(parent.selectedDate, inSameDayAs: safeSelectedDate) {
+                parent.selectedDate = safeSelectedDate
+                calendar.select(safeSelectedDate)
+            }
         }
-
+        
+        
+        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+            if date <= Date() {
+                parent.selectedDate = date
+                if let diary = parent.diaryRepository.getDiaryForDate(date) {
+                    parent.selectedDiary = diary
+                    parent.showReadDiary = true
+                } else {
+                    parent.showCreateDiary = true
+                }
+            } else {
+                // 미래 날짜 선택 시 선택 취소
+                calendar.deselect(date)
+            }
+        }
+        
         func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
             let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as! CustomCalendarCell
             
@@ -71,41 +117,48 @@ struct CalendarView: UIViewRepresentable {
                 cell.titleLabel.isHidden = false
                 cell.titleLabel.text = "\(Calendar.current.component(.day, from: date))"
             }
-
+            
             return cell
         }
-
-        func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-            
-            cell.contentView.frame = cell.bounds.insetBy(dx: 1, dy: 1)
-        }
+        
         func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-            if parent.diaryRepository.getDiaryForDate(date) != nil {
-                return .clear  // 일기가 있는 날짜의 텍스트 색상을 투명하게 설정
+            if date > Date() {
+                return .lightGray
             }
             return nil
         }
+        
+        func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+            return date <= Date()
+        }
+        
     }
+    
 }
 
 class CustomCalendarCell: FSCalendarCell {
     var rockImageView: UIImageView!
-
+    
     override init!(frame: CGRect) {
         super.init(frame: frame)
-
+        
         rockImageView = UIImageView()
         rockImageView.contentMode = .scaleAspectFit
         contentView.addSubview(rockImageView)
     }
-
+    
     required init!(coder aDecoder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         rockImageView.frame = contentView.bounds.insetBy(dx: 5, dy: 5)
+    }
+}
+extension Calendar {
+    func startOfMonth(for date: Date) -> Date {
+        return self.date(from: self.dateComponents([.year, .month], from: date))!
     }
 }
