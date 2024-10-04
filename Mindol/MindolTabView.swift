@@ -1,5 +1,5 @@
 //
-//  MainTabView.swift
+//  MindolTabView.swift
 //  Mindol
 //
 //  Created by dopamint on 10/3/24.
@@ -8,23 +8,61 @@
 import SwiftUI
 
 struct MindolTabView: View {
+    @State private var currentTab = 0
+    @State private var offset: CGFloat = 0
+    @State private var isDragging = false
+    
     var body: some View {
-        TabView {
-            RockStackView()
-                .tabItem {
-                    Image(systemName: "1.square.fill")
-                    Text("First")
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                HStack(spacing: 0) {
+                    RockStackView()
+                        .frame(width: geometry.size.width)
+                    
+                    DirayListView()
+                        .frame(width: geometry.size.width)
                 }
-            DirayListView()
-                .tabItem {
-                    Image(systemName: "2.square.fill")
-                    Text("Second")
-                }
+                .offset(x: -CGFloat(currentTab) * geometry.size.width)
+                .offset(x: limitedOffset(for: offset, in: geometry))
+                .animation(.interactiveSpring(), value: currentTab)
+                .animation(.interactiveSpring(), value: offset)
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            isDragging = true
+                            offset = value.translation.width
+                        }
+                        .onEnded { value in
+                            isDragging = false
+                            let threshold = geometry.size.width * 0.2
+                            if value.translation.width > threshold && currentTab > 0 {
+                                currentTab -= 1
+                            } else if value.translation.width < -threshold && currentTab < 1 {
+                                currentTab += 1
+                            }
+                            offset = 0
+                        }
+                )
+            }
         }
-        .font(.headline)
+        .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func limitedOffset(for offset: CGFloat, in geometry: GeometryProxy) -> CGFloat {
+        let maxOffset = geometry.size.width
+        if currentTab == 0 {
+            return min(offset, 0)
+        } else if currentTab == 1 {
+            return max(offset, 0)
+        }
+        return offset
     }
 }
-
-#Preview {
-    MindolTabView()
-}
+// 페이지 인디케이터
+//HStack(spacing: 8) {
+//    ForEach(0..<2) { index in
+//        Circle()
+//            .fill(currentTab == index ? Color.blue : Color.gray)
+//            .frame(width: 8, height: 8)
+//    }
+//}
