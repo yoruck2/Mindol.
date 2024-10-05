@@ -19,7 +19,7 @@ struct MindolTabView: View {
                     RockStackView()
                         .frame(width: geometry.size.width)
                     
-                    DirayListView()
+                    DiaryListView()
                         .frame(width: geometry.size.width)
                 }
                 .offset(x: -CGFloat(currentTab) * geometry.size.width)
@@ -34,7 +34,7 @@ struct MindolTabView: View {
                         }
                         .onEnded { value in
                             isDragging = false
-                            let threshold = geometry.size.width * 0.2
+                            let threshold = geometry.size.width * 0.3
                             if value.translation.width > threshold && currentTab > 0 {
                                 currentTab -= 1
                             } else if value.translation.width < -threshold && currentTab < 1 {
@@ -58,11 +58,4 @@ struct MindolTabView: View {
         return offset
     }
 }
-// 페이지 인디케이터
-//HStack(spacing: 8) {
-//    ForEach(0..<2) { index in
-//        Circle()
-//            .fill(currentTab == index ? Color.blue : Color.gray)
-//            .frame(width: 8, height: 8)
-//    }
-//}
+

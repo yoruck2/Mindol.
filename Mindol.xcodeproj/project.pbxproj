@@ -27,12 +27,29 @@
 		849053662CABF2290089DD08 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 849053652CABF2290089DD08 /* SwiftUIIntrospect */; };
 		8490536D2CAC84CE0089DD08 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490536C2CAC84CE0089DD08 /* UIApplication+.swift */; };
 		84B7521C2CAD47570015B327 /* RockStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7521B2CAD47570015B327 /* RockStackView.swift */; };
-		84B7521E2CADB1380015B327 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7521D2CADB1380015B327 /* MainTabView.swift */; };
 		84B752212CADBA990015B327 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752202CADBA990015B327 /* CalendarView.swift */; };
 		84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752222CADBDBD0015B327 /* FlipCardView.swift */; };
 		84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752242CADBEBD0015B327 /* SceneWrapper.swift */; };
 		84B752272CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */; };
+		84B752302CAFDCA00015B327 /* MindolTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7522F2CAFDCA00015B327 /* MindolTabView.swift */; };
+		84B752332CB009170015B327 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752322CB009170015B327 /* SettingsView.swift */; };
+		84B752342CB01C560015B327 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 849053382CA991200089DD08 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		84B752372CB125020015B327 /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752362CB125020015B327 /* YearPickerView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		84B752352CB01C560015B327 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				84B752342CB01C560015B327 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		849053242CA990E20089DD08 /* Mindol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mindol.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,11 +70,13 @@
 		849053622CAA3EC60089DD08 /* RockStackScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockStackScene.swift; sourceTree = "<group>"; };
 		8490536C2CAC84CE0089DD08 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		84B7521B2CAD47570015B327 /* RockStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockStackView.swift; sourceTree = "<group>"; };
-		84B7521D2CADB1380015B327 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		84B752202CADBA990015B327 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		84B752222CADBDBD0015B327 /* FlipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCardView.swift; sourceTree = "<group>"; };
 		84B752242CADBEBD0015B327 /* SceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneWrapper.swift; sourceTree = "<group>"; };
 		84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptiveBottomBar.swift; sourceTree = "<group>"; };
+		84B7522F2CAFDCA00015B327 /* MindolTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindolTabView.swift; sourceTree = "<group>"; };
+		84B752322CB009170015B327 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		84B752362CB125020015B327 /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +115,12 @@
 			children = (
 				8490534C2CA991C40089DD08 /* Rock.swift */,
 				849053552CA9AEF40089DD08 /* MindolApp.swift */,
-				84B7521D2CADB1380015B327 /* MainTabView.swift */,
+				84B7522F2CAFDCA00015B327 /* MindolTabView.swift */,
 				849053502CA995430089DD08 /* DB */,
 				84B752282CAF26730015B327 /* DiaryList */,
 				849053612CAA3EA80089DD08 /* RockStack */,
 				849053442CA9917B0089DD08 /* DiaryCRUD */,
+				84B752312CB008F40015B327 /* Setup */,
 				84B7521F2CADBA750015B327 /* Component */,
 				849053592CA9B29A0089DD08 /* ViewModifier */,
 				8490535C2CA9BF990089DD08 /* Extension */,
@@ -179,8 +199,17 @@
 			children = (
 				849053292CA990E20089DD08 /* DiaryListView.swift */,
 				8490535A2CA9B7C70089DD08 /* RowStackView.swift */,
+				84B752362CB125020015B327 /* YearPickerView.swift */,
 			);
 			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		84B752312CB008F40015B327 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				84B752322CB009170015B327 /* SettingsView.swift */,
+			);
+			path = Setup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +222,7 @@
 				849053202CA990E20089DD08 /* Sources */,
 				849053212CA990E20089DD08 /* Frameworks */,
 				849053222CA990E20089DD08 /* Resources */,
+				84B752352CB01C560015B327 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,13 +298,14 @@
 				8490534A2CA991AB0089DD08 /* EmotionSelectionView.swift in Sources */,
 				8490532A2CA990E20089DD08 /* DiaryListView.swift in Sources */,
 				84B752212CADBA990015B327 /* CalendarView.swift in Sources */,
-				84B7521E2CADB1380015B327 /* MainTabView.swift in Sources */,
 				849053362CA9910F0089DD08 /* DiaryTable.swift in Sources */,
 				8490535B2CA9B7C70089DD08 /* RowStackView.swift in Sources */,
 				8490536D2CAC84CE0089DD08 /* UIApplication+.swift in Sources */,
 				849053522CA99DEA0089DD08 /* DiaryRepository.swift in Sources */,
 				8490534D2CA991C40089DD08 /* Rock.swift in Sources */,
 				8490535E2CA9BFAC0089DD08 /* Date+.swift in Sources */,
+				84B752372CB125020015B327 /* YearPickerView.swift in Sources */,
+				84B752302CAFDCA00015B327 /* MindolTabView.swift in Sources */,
 				84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */,
 				84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */,
 				8490534F2CA991DC0089DD08 /* CreateDiaryView.swift in Sources */,
@@ -282,6 +313,7 @@
 				84B752272CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift in Sources */,
 				849053632CAA3EC60089DD08 /* RockStackScene.swift in Sources */,
 				849053602CA9D6D70089DD08 /* ReadDiaryView.swift in Sources */,
+				84B752332CB009170015B327 /* SettingsView.swift in Sources */,
 				84B7521C2CAD47570015B327 /* RockStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
