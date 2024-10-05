@@ -27,9 +27,16 @@ extension Date {
         Date.formatter.dateFormat = "EEEE"
         return Date.formatter.string(from: self)
     }
-    
+    var year: Int {
+        Date.formatter.dateFormat = "Y"
+        return Int(Date.formatter.string(from: self)) ?? .zero
+    }
     var month: Int {
         Date.formatter.dateFormat = "M"
+        return Int(Date.formatter.string(from: self)) ?? .zero
+    }
+    var day: Int {
+        Date.formatter.dateFormat = "d"
         return Int(Date.formatter.string(from: self)) ?? .zero
     }
 }
