@@ -102,7 +102,9 @@ class RockStackScene: SKScene {
     private func createBall(at position: CGPoint, rockType: Rock, diaryId: ObjectId) -> SKNode {
         let ball = SKSpriteNode(imageNamed: rockType.rawValue)
         ball.position = position
-        ball.size = CGSize(width: 60, height: 60)
+        
+        ball.size = CGSize(width: RockStackSceneConfig.rockSize,
+                           height: RockStackSceneConfig.rockSize)
         ball.name = diaryId.stringValue
         
         let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
@@ -110,7 +112,7 @@ class RockStackScene: SKScene {
         setupBallPhysics(for: ball)
         return ball
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         let touchedNodes = nodes(at: location)
@@ -122,7 +124,6 @@ class RockStackScene: SKScene {
             }
         }
     }
-    
 }
 
 // MARK: physics settings
