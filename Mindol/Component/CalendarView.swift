@@ -13,39 +13,41 @@ struct CalendarView: UIViewRepresentable {
     @Binding var selectedDate: Date
     @Binding var currentMonth: Date
     @EnvironmentObject var diaryRepository: DiaryRepository
+    @Binding var showingEmotionSelection: Bool
     @Binding var showCreateDiary: Bool
     @Binding var showReadDiary: Bool
     @Binding var selectedDiary: DiaryTable?
     @Binding var calendarReference: FSCalendar?
     
-    
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
-        calendar.appearance.headerDateFormat = "MMMM yyyy"
+        calendar.appearance.headerDateFormat = ""
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.appearance.titleSelectionColor = .black
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 20)
         calendar.appearance.eventOffset = CGPoint(x: 0, y: -7)
         calendar.swipeToChooseGesture.isEnabled = false
-        calendar.scrollEnabled = true
-        calendar.scrollDirection = .vertical
+        calendar.scrollEnabled = false
+        calendar.scrollDirection = .horizontal
+        calendar.headerHeight = 0
+        calendar.rowHeight = 20
         calendarReference = calendar
         
         // 이전/이후 달의 날짜 숨기기
         calendar.placeholderType = .none
         
         // 오늘 날짜와 선택한 날짜의 강조 표시 제거
-        calendar.appearance.todayColor = .clear
         calendar.appearance.selectionColor = .clear
+        if diaryRepository.hasDiaryForDate(Date()) {
+            calendar.appearance.todayColor = .clear
+        }
+        calendar.appearance.todayColor = .orange
         
         // 날짜 셀 커스터마이즈
         calendar.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
-        calendar.scrollEnabled = true
-        // 캘린더 스크롤 방향 지정
-        calendar.scrollDirection = .vertical
         return calendar
     }
     
@@ -76,12 +78,13 @@ struct CalendarView: UIViewRepresentable {
                 parent.selectedDate = date
                 if let diary = parent.diaryRepository.getDiaryForDate(date) {
                     parent.selectedDiary = diary
+                    
                     parent.showReadDiary = true
                 } else {
-                    parent.showCreateDiary = true
+                    parent.selectedDate = date
+                    parent.showingEmotionSelection = true
                 }
             } else {
-                // 미래 날짜 선택 시 선택 취소
                 calendar.deselect(date)
             }
         }
