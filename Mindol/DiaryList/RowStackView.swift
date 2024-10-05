@@ -18,7 +18,7 @@ struct RowStackView: View {
                     .scaledToFit()
                     .frame(width: 50, height: 50)
                 VStack(alignment: .leading) {
-                    Text(diary.date.formattedDate)
+                    Text(diary.date.formattedKoreanDate)
                     Text(diary.date.koreanDayOfWeek)
                 }
                 Spacer()

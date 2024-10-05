@@ -9,12 +9,13 @@ import SwiftUI
 
 struct EmotionSelectionView: View {
     @Binding var selectedRock: Rock?
+    @Binding var date: Date
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
             VStack {
-                Text(Date().formattedKoreanDate)
+                Text(date.formattedKoreanDate)
                 Text("오늘의 감정을 선택해주세요")
                     .padding(.bottom, 40)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 20) {

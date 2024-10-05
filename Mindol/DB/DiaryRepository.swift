@@ -7,19 +7,20 @@
 
 import Foundation
 import RealmSwift
-import Combine
+//import Combine
 
 class DiaryRepository: ObservableObject {
     static let shared = DiaryRepository()
-//    let realm = try! Realm()
+    //    let realm = try! Realm()
     @ObservedResults(DiaryTable.self)
     var diaryList
     
     let realm: Realm
-        
-        init(realm: Realm = try! Realm()) {
-            self.realm = realm
-        }
+    
+    init(realm: Realm = try! Realm()) {
+        self.realm = realm
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+    }
     
     func createDiary(_ diary: DiaryTable) {
         do {
@@ -57,7 +58,6 @@ class DiaryRepository: ObservableObject {
 extension DiaryRepository {
     
     func hasDiaryForDate(_ date: Date) -> Bool {
-        let realm = try! Realm()
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)
         let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
