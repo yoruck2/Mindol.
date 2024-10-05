@@ -7,7 +7,7 @@
 
 import SwiftUI
 import RealmSwift
-
+import Combine
 class SceneWrapper: ObservableObject {
     @Published var currentMonth: Date
        @Published var selectedDiaryId: ObjectId?
