@@ -12,6 +12,7 @@ import RealmSwift
 struct CalendarView: UIViewRepresentable {
     @Binding var selectedDate: Date
     @Binding var currentMonth: Date
+//    @EnvironmentObject var sceneWrapper: SceneWrapper
     @EnvironmentObject var diaryRepository: DiaryRepository
     @Binding var showingEmotionSelection: Bool
     @Binding var showCreateDiary: Bool

@@ -7,20 +7,23 @@
 
 import SwiftUI
 
-struct YearPickerView: View {
+struct DatePickerView: View {
     @Binding var selectedYear: Int
+    @Binding var selectedMonth: Int?
     @Binding var isPresented: Bool
     @State private var opacity: Double = 0
     @State private var tempSelectedYear: Int
     
     private let currentYear = Calendar.current.component(.year, from: Date())
     private let yearRange: [Int]
+    private let months = [nil] + Array(1...12)
     
-    init(selectedYear: Binding<Int>, isPresented: Binding<Bool>) {
+    init(selectedYear: Binding<Int>, selectedMonth: Binding<Int?>, isPresented: Binding<Bool>) {
         self._selectedYear = selectedYear
+        self._selectedMonth = selectedMonth
         self._isPresented = isPresented
         let currentYear = Calendar.current.component(.year, from: Date())
-        self.yearRange = Array((currentYear - 100)...currentYear).reversed()
+        self.yearRange = Array(1900...currentYear).reversed()
         self._tempSelectedYear = State(initialValue: selectedYear.wrappedValue)
     }
     
@@ -32,33 +35,38 @@ struct YearPickerView: View {
                     dismissView()
                 }
             
-            VStack {
-                Text("년도 선택")
-                    .font(.headline)
-                    .padding()
+            VStack(spacing: 20) {
                 
-                ScrollView {
-                    LazyVStack {
+                
+                HStack {
+                    Picker("Year", selection: $selectedYear) {
                         ForEach(yearRange, id: \.self) { year in
-                            Button(action: {
-                                tempSelectedYear = year
-                            }) {
-                                Text(String(year))
-                                    .foregroundColor(tempSelectedYear == year ? .blue : .primary)
-                                    .padding(.vertical, 8)
-                            }
+                            Text("\(year.description)년").tag(year)
                         }
                     }
+                    .pickerStyle(.inline)
+                    .frame(width: 95)
+                    .clipped()
+                    
+                    Picker("Month", selection: $selectedMonth) {
+                        Text("전체").tag(nil as Int?)
+                        ForEach(1...12, id: \.self) { month in
+                            Text("\(month)월").tag(month as Int?)
+                        }
+                    }
+                    .pickerStyle(.inline)
+                    .frame(width: 60)
+                    .clipped()
+                    Text("의 기억을 볼래요")
+                        .font(.headline)
                 }
-                .frame(height: 200)
                 
                 Button("선택") {
-                    selectedYear = tempSelectedYear
                     dismissView()
                 }
                 .padding()
             }
-            .frame(width: 250, height: 300)
+            .frame(width: 300, height: 250)
             .background(Color.white)
             .cornerRadius(20)
             .shadow(radius: 10)
@@ -75,8 +83,8 @@ struct YearPickerView: View {
         withAnimation(.easeOut(duration: 0.2)) {
             opacity = 0
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             isPresented = false
-        }
+//        }
     }
 }

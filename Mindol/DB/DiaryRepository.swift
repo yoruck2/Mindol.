@@ -11,7 +11,6 @@ import RealmSwift
 
 class DiaryRepository: ObservableObject {
     static let shared = DiaryRepository()
-    //    let realm = try! Realm()
     @ObservedResults(DiaryTable.self)
     var diaryList
     
@@ -23,13 +22,14 @@ class DiaryRepository: ObservableObject {
     }
     
     func createDiary(_ diary: DiaryTable) {
-        do {
-            try realm.write {
-                realm.add(diary, update: .modified)
-            }
-        } catch {
-            print("Error creating diary: \(error)")
-        }
+        $diaryList.append(diary)
+//        do {
+//            try realm.write {
+//                realm.add(diary, update: .modified)
+//            }
+//        } catch {
+//            print("Error creating diary: \(error)")
+//        }
     }
     
     func updateDiary(_ diary: DiaryTable) {
@@ -43,15 +43,7 @@ class DiaryRepository: ObservableObject {
     }
     
     func deleteDiary(_ diary: DiaryTable) {
-        do {
-            try realm.write {
-                if let diaryToDelete = realm.object(ofType: DiaryTable.self, forPrimaryKey: diary.id) {
-                    realm.delete(diaryToDelete)
-                }
-            }
-        } catch {
-            print("Error deleting diary: \(error)")
-        }
+        $diaryList.remove(diary)
     }
 }
 
@@ -63,7 +55,7 @@ extension DiaryRepository {
         let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
         
         let predicate = NSPredicate(format: "date >= %@ AND date < %@", startOfDay as NSDate, endOfDay as NSDate)
-        return realm.objects(DiaryTable.self).filter(predicate).count > 0
+        return diaryList.filter(predicate).count > 0
     }
     
     func getDiariesForCurrentMonth(date: Date) -> [DiaryTable] {
@@ -75,10 +67,11 @@ extension DiaryRepository {
         return Array(diaryList.filter("date BETWEEN {%@, %@}", startOfMonth, endOfMonth))
     }
     
-    
+    // 아이디로 일기 찾기
     func getDiary(by id: ObjectId) -> DiaryTable? {
         return realm.object(ofType: DiaryTable.self, forPrimaryKey: id)
     }
+    // day로 일기 찾기 (
     func getDiaryForDate(_ date: Date) -> DiaryTable? {
             let calendar = Calendar.current
             let startOfDay = calendar.startOfDay(for: date)
