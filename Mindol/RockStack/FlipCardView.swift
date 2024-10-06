@@ -27,28 +27,27 @@ struct FlipCardView: View {
     @Binding var showReadDiary: Bool
     @Binding var showingEmotionSelection: Bool
     @Binding var selectedDiary: DiaryTable?
-    @Binding var calendarReference: FSCalendar?
+//    @Binding var calendarReference: FSCalendar?
     var body: some View {
-        ZStack {
-            
-            // 앞면 (RockStackScene)
-            SpriteView(scene: sceneWrapper.getScene())
-                .frame(width: 350, height: 450)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .opacity(presenter.isFlipped ? 0 : 1)
-            
-            // 뒷면 (Calendar)
-            CalendarView(selectedDate: $selectedDate,
-                                     currentMonth: $currentMonth,
-                         showingEmotionSelection: $showingEmotionSelection, showCreateDiary: $showCreateDiary,
-                                     showReadDiary: $showReadDiary,
-                         selectedDiary: $selectedDiary, calendarReference: $calendarReference)
-                            .frame(width: 350, height: 450)
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .opacity(presenter.isFlipped ? 1 : 0)
-                            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+            ZStack {
+                // 앞면 (RockStackScene)
+                SpriteView(scene: sceneWrapper.getScene())
+                    .frame(width: 350, height: 450)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .opacity(presenter.isFlipped ? 0 : 1)
+                
+                // 뒷면 (Calendar)
+                CustomCalendarView(selectedDate: $selectedDate,
+                                   currentMonth: $sceneWrapper.currentMonth,
+                                   showingEmotionSelection: $showingEmotionSelection,
+                                   showReadDiary: $showReadDiary,
+                                   selectedDiary: $selectedDiary)
+                    .frame(width: 350, height: 450)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .opacity(presenter.isFlipped ? 1 : 0)
+                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+            }
+            .rotation3DEffect(.degrees(presenter.isFlipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+            .animation(.default, value: presenter.isFlipped)
         }
-        .rotation3DEffect(.degrees(presenter.isFlipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
-        .animation(.default, value: presenter.isFlipped)
-    }
 }

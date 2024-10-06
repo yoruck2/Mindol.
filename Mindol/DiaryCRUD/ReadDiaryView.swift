@@ -52,7 +52,8 @@ struct ReadDiaryView: View {
                         .alert("정말로 일기를 삭제할까요?", isPresented: $showingDeleteAlert) {
                             Button("삭제", role: .destructive) {
                                 realm.deleteDiary(diary)
-                                sceneWrapper.refreshViews()
+                                sceneWrapper.updateSceneForCurrentMonth()
+                                sceneWrapper.updateCalendar()
                                 dismiss()
                             }
                             Button("취소", role: .cancel) {}
@@ -63,7 +64,7 @@ struct ReadDiaryView: View {
                 }
                 .fullScreenCover(isPresented: $showingEditView) {
                     CreateDiaryView(selectedRock: diary.feeling,
-                                    date: diary.date,
+                                    date: .constant(diary.date),
                                     diaryText: diary.contents?.text ?? "",
                                     editingDiary: diary, sceneWrapper: sceneWrapper)
                     .onAppear(perform : UIApplication.shared.hideKeyboard)
