@@ -144,3 +144,92 @@ extension Calendar {
         return self.date(from: self.dateComponents([.year, .month], from: date))!
     }
 }
+
+struct CustomCalendarView: View {
+    @EnvironmentObject var sceneWrapper: SceneWrapper
+        @EnvironmentObject var diaryRepository: DiaryRepository
+        @Binding var selectedDate: Date
+        @Binding var currentMonth: Date
+        @State private var calendar = Calendar.current
+        @Binding var showingEmotionSelection: Bool
+        @Binding var showReadDiary: Bool
+        @Binding var selectedDiary: DiaryTable?
+        
+        @State private var forceUpdate: Bool = false
+
+        var body: some View {
+            VStack {
+                dayOfWeekHeader
+                calendarGrid
+            }
+            .onChange(of: sceneWrapper.calendarNeedsUpdate) { needsUpdate in
+                if needsUpdate {
+                    forceUpdate.toggle()  // 이 상태 변경으로 뷰를 강제로 다시 그립니다.
+                    sceneWrapper.calendarNeedsUpdate = false
+                }
+            }
+        }
+
+        private var dayOfWeekHeader: some View {
+            HStack {
+                ForEach(calendar.shortWeekdaySymbols, id: \.self) { day in
+                    Text(day)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+        }
+
+    private var calendarGrid: some View {
+            let daysInMonth = calendar.range(of: .day, in: .month, for: currentMonth)!.count
+            let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentMonth))!
+            let startingSpaces = calendar.component(.weekday, from: firstOfMonth) - 1
+
+            return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 7), spacing: 15) { // spacing 값을 조정
+                ForEach(0..<42) { index in
+                    if index < startingSpaces || index >= startingSpaces + daysInMonth {
+                        Color.clear
+                    } else {
+                        let date = calendar.date(byAdding: .day, value: index - startingSpaces, to: firstOfMonth)!
+                        DayCell(date: date, selectedDate: $selectedDate, diaryRepository: diaryRepository, showingEmotionSelection: $showingEmotionSelection, showReadDiary: $showReadDiary, selectedDiary: $selectedDiary)
+                    }
+                }
+            }
+            .id(forceUpdate)
+        }
+}
+
+struct DayCell: View {
+    let date: Date
+    @Binding var selectedDate: Date
+    let diaryRepository: DiaryRepository
+    @Binding var showingEmotionSelection: Bool
+    @Binding var showReadDiary: Bool
+    @Binding var selectedDiary: DiaryTable?
+
+    var body: some View {
+            VStack {
+                if let diary = diaryRepository.getDiaryForDate(date) {
+                    Image(diary.feeling)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                } else {
+                    Text(String(Calendar.current.component(.day, from: date)))
+                        .foregroundColor(date > Date() ? .gray : .primary)
+                }
+            }
+            .frame(height: 40) // 높이를 증가
+            .opacity(date > Date() ? 0.3 : 1.0)
+            .onTapGesture {
+                if date <= Date() {
+                    selectedDate = date
+                    if let diary = diaryRepository.getDiaryForDate(date) {
+                        selectedDiary = diary
+                        showReadDiary = true
+                    } else {
+                        showingEmotionSelection = true
+                    }
+                }
+            }
+        }
+    }
