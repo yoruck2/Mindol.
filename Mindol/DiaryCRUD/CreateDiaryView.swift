@@ -10,29 +10,28 @@ import Combine
 
 struct CreateDiaryView: View {
     var realm = DiaryRepository.shared
-       var selectedRock: String
-       @State private var diaryText: String
-       private let placeholder: String
-       var date: Date
-       @Environment(\.dismiss) private var dismiss
-       @State private var showingCancelAlert = false
-       
-       var editingDiary: DiaryTable?
-       
-       @ObservedRealmObject var diary: DiaryTable = DiaryTable()
+    var selectedRock: String
+    @State private var diaryText: String
+    private let placeholder: String
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var sceneWrapper: SceneWrapper
-       
-       init(selectedRock: String,
-            date: Date,
-            diaryText: String = "",
-            editingDiary: DiaryTable? = nil,
-            sceneWrapper: SceneWrapper) {
-           self.selectedRock = selectedRock
-           self.date = date
-           self._diaryText = State(initialValue: diaryText)
-           self.placeholder = "오늘의 기억을 새겨주세요"
-           self.editingDiary = editingDiary
-       }
+    @State private var showingCancelAlert = false
+    
+    var date: Date
+    var editingDiary: DiaryTable?
+    @ObservedRealmObject var diary: DiaryTable = DiaryTable()
+    
+    init(selectedRock: String,
+         date: Date,
+         diaryText: String = "",
+         editingDiary: DiaryTable? = nil,
+         sceneWrapper: SceneWrapper) {
+        self.selectedRock = selectedRock
+        self.date = date
+        self._diaryText = State(initialValue: diaryText)
+        self.placeholder = "오늘의 기억을 새겨주세요"
+        self.editingDiary = editingDiary
+    }
     
     var body: some View {
         NavigationStack {
@@ -68,20 +67,20 @@ struct CreateDiaryView: View {
                 }
                 
                 // TODO: 사진추가 기능 들어갈 곳
-//                KeyboardAdaptiveBottomBar {
-//                    AnyView(
-//                        HStack {
-//                            Button("First") {
-//                                print("tap first button")
-//                            }
-//                            Spacer()
-//                            Button("Second") {
-//                                print("tap second button")
-//                            }
-//                        }
-//                            .padding(.horizontal)
-//                    )
-//                }
+                //                KeyboardAdaptiveBottomBar {
+                //                    AnyView(
+                //                        HStack {
+                //                            Button("First") {
+                //                                print("tap first button")
+                //                            }
+                //                            Spacer()
+                //                            Button("Second") {
+                //                                print("tap second button")
+                //                            }
+                //                        }
+                //                            .padding(.horizontal)
+                //                    )
+                //                }
             }
             
             .alert("일기 작성을 그만둘까요?", isPresented: $showingCancelAlert) {
@@ -96,25 +95,26 @@ struct CreateDiaryView: View {
     }
     
     private func saveDiary() {
-            let contents = Contents()
-            contents.text = diaryText
-            contents.photo = ""
-            
-            if let diary = editingDiary {
-                try? realm.realm.write {
-                    diary.thaw()?.contents = contents
-                    
-                    $diary.wrappedValue.feeling = selectedRock
-                    $diary.wrappedValue.contents = contents
-                }
-            } else {
-                let newDiary = DiaryTable(feeling: selectedRock, date: date, contents: contents)
-                realm.createDiary(newDiary)
-                // 새로운 다이어리를 생성한 후 SceneWrapper의 addSingleRock 호출
-                sceneWrapper.addSingleRock(newDiary)
+        let contents = Contents()
+        contents.text = diaryText
+        contents.photo = ""
+        
+        if let diary = editingDiary {
+            try? realm.realm.write {
+                diary.thaw()?.contents = contents
+                
+                $diary.wrappedValue.feeling = selectedRock
+                $diary.wrappedValue.contents = contents
             }
-            dismiss()
+        } else {
+            let newDiary = DiaryTable(feeling: selectedRock, date: date, contents: contents)
+            realm.createDiary(newDiary)
+            // 새로운 다이어리를 생성한 후 SceneWrapper의 addSingleRock 호출
+            sceneWrapper.addSingleRock(newDiary)
         }
+        sceneWrapper.refreshCalendar()
+        dismiss()
+    }
 }
 struct AdjustableTextEditor: View {
     @Binding var text: String
