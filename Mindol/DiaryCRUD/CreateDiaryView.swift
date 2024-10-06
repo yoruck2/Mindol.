@@ -17,17 +17,17 @@ struct CreateDiaryView: View {
     @EnvironmentObject var sceneWrapper: SceneWrapper
     @State private var showingCancelAlert = false
     
-    var date: Date
+    @Binding var date: Date
     var editingDiary: DiaryTable?
     @ObservedRealmObject var diary: DiaryTable = DiaryTable()
     
     init(selectedRock: String,
-         date: Date,
+         date: Binding<Date>,
          diaryText: String = "",
          editingDiary: DiaryTable? = nil,
          sceneWrapper: SceneWrapper) {
         self.selectedRock = selectedRock
-        self.date = date
+        self._date = date
         self._diaryText = State(initialValue: diaryText)
         self.placeholder = "오늘의 기억을 새겨주세요"
         self.editingDiary = editingDiary
@@ -109,10 +109,10 @@ struct CreateDiaryView: View {
         } else {
             let newDiary = DiaryTable(feeling: selectedRock, date: date, contents: contents)
             realm.createDiary(newDiary)
-            // 새로운 다이어리를 생성한 후 SceneWrapper의 addSingleRock 호출
             sceneWrapper.addSingleRock(newDiary)
         }
-        sceneWrapper.refreshCalendar()
+//        sceneWrapper.updateSceneForCurrentMonth()
+        sceneWrapper.updateCalendar()
         dismiss()
     }
 }

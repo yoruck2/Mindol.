@@ -18,7 +18,7 @@ class DiaryRepository: ObservableObject {
     
     init(realm: Realm = try! Realm()) {
         self.realm = realm
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "")
     }
     
     func createDiary(_ diary: DiaryTable) {
