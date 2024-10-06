@@ -24,6 +24,18 @@ class RockStackScene: SKScene {
     var currentMonth: Date?
     var onRockTapped: ((ObjectId) -> Void)?
     
+//    init(rockNodes: [ObjectId : SKNode], currentMonth: Date? = nil, onRockTapped: ( (ObjectId) -> Void)? = nil) {
+//        super.init()
+//        self.rockNodes = rockNodes
+//        self.currentMonth = currentMonth
+//        self.onRockTapped = onRockTapped
+//        print("✨ RockStackScene init")
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     override func didMove(to view: SKView) {
         setupPhysicsWorld()
         setupBackground()

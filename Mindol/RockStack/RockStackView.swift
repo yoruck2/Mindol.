@@ -40,14 +40,43 @@ struct RockStackView: View {
                                  showCreateDiary: $showCreateDiary,
                                  showReadDiary: $showReadDiary,
                                  showingEmotionSelection: $showingEmotionSelection,
-                                 selectedDiary: $selectedDiary,
-                                 calendarReference: $calendarReference)
+                                 selectedDiary: $selectedDiary, calendarReference: $calendarReference)
                     .padding(.vertical, 20)
                     Spacer(minLength: 60)
                 }
                 
                 VStack {
+//                    ZStack {
+//                        if !isCurrentMonthAndYear() {
+//                            Button {
+//                                moveToCurrentDate()
+//                            } label: {
+//                                Text("오늘로가기")
+//                                    .padding(.horizontal, 12)
+//                                    .padding(.vertical, 6)
+//                                    .background(Capsule().fill(Color.orange))
+//                                    .foregroundColor(.white)
+//                            }
+//                            .transition(.opacity)
+//                            .animation(.easeInOut, value: isCurrentMonthAndYear())
+//                            .padding(EdgeInsets(top: 70, leading: 0, bottom: 0, trailing: 0))
+//                        }
+//                    }
                     Spacer()
+                    if !isCurrentMonthAndYear() {
+                        Button {
+                            moveToCurrentDate()
+                        } label: {
+                            Text("오늘")
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Capsule().fill(Color.orange))
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: isCurrentMonthAndYear())
+                    }
                     HStack {
                         NavigationLink(destination: SettingsView()) {
                             Image("setup")
@@ -106,6 +135,18 @@ struct RockStackView: View {
             updateScene(for: newValue)
         }
     }
+    private func isCurrentMonthAndYear() -> Bool {
+            let calendar = Calendar.current
+            let currentComponents = calendar.dateComponents([.year, .month], from: selectedDate)
+            let selectedComponents = calendar.dateComponents([.year, .month], from: sceneWrapper.currentMonth)
+            return currentComponents.year == selectedComponents.year && currentComponents.month == selectedComponents.month
+        }
+        
+        private func moveToCurrentDate() {
+            sceneWrapper.currentMonth = selectedDate
+            updateScene(for: selectedDate)
+            calendarReference?.setCurrentPage(selectedDate, animated: true)
+        }
     
     // 오늘일기가 이미 있는지 확인
     private func checkAndProceedToNewDiary() {
@@ -148,7 +189,9 @@ struct RockStackView: View {
     }
     
     private func moveMonth(by offset: Int) {
-        if let newDate = Calendar.current.date(byAdding: .month, value: offset, to: sceneWrapper.currentMonth),
+        if let newDate = Calendar.current.date(byAdding: .month, 
+                                               value: offset,
+                                               to: sceneWrapper.currentMonth),
            canMoveMonth(by: offset) {
             sceneWrapper.currentMonth = newDate
             updateScene(for: newDate)
@@ -157,7 +200,10 @@ struct RockStackView: View {
     }
     
     private func canMoveMonth(by offset: Int) -> Bool {
-        guard let newDate = Calendar.current.date(byAdding: .month, value: offset, to: sceneWrapper.currentMonth) else {
+        guard let newDate = Calendar.current.date(byAdding: .month, 
+                                                  value: offset,
+                                                  to: sceneWrapper.currentMonth)
+        else {
             return false
         }
         let currentMonth = Date()
@@ -173,6 +219,7 @@ struct RockStackView: View {
     
     private func updateScene(for date: Date) {
         sceneWrapper.updateScene(for: date)
+        sceneWrapper.refreshCalendar()
     }
     
     //       private func moveMonth(by offset: Int) {

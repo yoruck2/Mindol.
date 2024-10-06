@@ -34,7 +34,7 @@
 		84B752302CAFDCA00015B327 /* MindolTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7522F2CAFDCA00015B327 /* MindolTabView.swift */; };
 		84B752332CB009170015B327 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752322CB009170015B327 /* SettingsView.swift */; };
 		84B752342CB01C560015B327 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 849053382CA991200089DD08 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		84B752372CB125020015B327 /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752362CB125020015B327 /* YearPickerView.swift */; };
+		84B752372CB125020015B327 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752362CB125020015B327 /* DatePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -76,7 +76,7 @@
 		84B752262CAEB7700015B327 /* KeyboardAdaptiveBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptiveBottomBar.swift; sourceTree = "<group>"; };
 		84B7522F2CAFDCA00015B327 /* MindolTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindolTabView.swift; sourceTree = "<group>"; };
 		84B752322CB009170015B327 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		84B752362CB125020015B327 /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
+		84B752362CB125020015B327 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 				84B752282CAF26730015B327 /* DiaryList */,
 				849053612CAA3EA80089DD08 /* RockStack */,
 				849053442CA9917B0089DD08 /* DiaryCRUD */,
-				84B752312CB008F40015B327 /* Setup */,
+				84B752312CB008F40015B327 /* Settings */,
 				84B7521F2CADBA750015B327 /* Component */,
 				849053592CA9B29A0089DD08 /* ViewModifier */,
 				8490535C2CA9BF990089DD08 /* Extension */,
@@ -199,17 +199,17 @@
 			children = (
 				849053292CA990E20089DD08 /* DiaryListView.swift */,
 				8490535A2CA9B7C70089DD08 /* RowStackView.swift */,
-				84B752362CB125020015B327 /* YearPickerView.swift */,
+				84B752362CB125020015B327 /* DatePickerView.swift */,
 			);
 			path = DiaryList;
 			sourceTree = "<group>";
 		};
-		84B752312CB008F40015B327 /* Setup */ = {
+		84B752312CB008F40015B327 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				84B752322CB009170015B327 /* SettingsView.swift */,
 			);
-			path = Setup;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +304,7 @@
 				849053522CA99DEA0089DD08 /* DiaryRepository.swift in Sources */,
 				8490534D2CA991C40089DD08 /* Rock.swift in Sources */,
 				8490535E2CA9BFAC0089DD08 /* Date+.swift in Sources */,
-				84B752372CB125020015B327 /* YearPickerView.swift in Sources */,
+				84B752372CB125020015B327 /* DatePickerView.swift in Sources */,
 				84B752302CAFDCA00015B327 /* MindolTabView.swift in Sources */,
 				84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */,
 				84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */,

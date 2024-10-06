@@ -8,18 +8,31 @@
 import SwiftUI
 import RealmSwift
 import Combine
+import FSCalendar
 class SceneWrapper: ObservableObject {
     @Published var currentMonth: Date
        @Published var selectedDiaryId: ObjectId?
        private var scene: RockStackScene?
        let diaryRepository: DiaryRepository
-       
+    var calendarReference: FSCalendar?
        init(diaryRepository: DiaryRepository) {
            self.diaryRepository = diaryRepository
            self.currentMonth = Date()
            updateScene(for: currentMonth)
        }
-       
+    func refreshCalendar() {
+            calendarReference?.reloadData()
+            objectWillChange.send()
+        }
+    func refreshViews() {
+            updateScene(for: currentMonth)
+            calendarReference?.reloadData()
+            objectWillChange.send()
+        }
+        
+        func setCalendarReference(_ calendar: FSCalendar?) {
+            self.calendarReference = calendar
+        }
        func updateScene(for date: Date) {
            currentMonth = date
            let diaries = diaryRepository.getDiariesForCurrentMonth(date: date)
