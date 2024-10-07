@@ -22,9 +22,8 @@ struct MindolApp: App {
             MindolTabView()
                 .environmentObject(sceneWrapper)
                 .environmentObject(diaryRepository)
+                .customFont(type: .Geurimilgi, size: 20)
         }
     }
 }
-#Preview {
-    MindolTabView()
-}
+

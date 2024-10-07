@@ -12,7 +12,9 @@ struct MindolTabView: View {
     @State private var offset: CGFloat = 0
     @State private var isDragging = false
     private let animationDuration: Double = 0.4
+    
     var body: some View {
+        
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 HStack(spacing: 0) {
@@ -39,6 +41,7 @@ struct MindolTabView: View {
                                 withAnimation(.spring(duration: animationDuration)) {
                                     currentTab -= 1
                                 }
+                                
                             } else if value.translation.width < -threshold && currentTab < 1 {
                                 withAnimation(.spring(duration: animationDuration)) {
                                     currentTab += 1
@@ -51,7 +54,6 @@ struct MindolTabView: View {
         }
         .edgesIgnoringSafeArea(.all)
     }
-    
     private func limitedOffset(for offset: CGFloat, in geometry: GeometryProxy) -> CGFloat {
         let _ = geometry.size.width
         if currentTab == 0 {
