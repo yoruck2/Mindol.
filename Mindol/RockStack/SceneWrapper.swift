@@ -10,6 +10,7 @@ import RealmSwift
 import Combine
 import FSCalendar
 class SceneWrapper: ObservableObject {
+    
     @Published var currentMonth: Date {
             didSet {
                 updateSceneForCurrentMonth()
@@ -41,7 +42,7 @@ class SceneWrapper: ObservableObject {
                 return scene
             }
             let newScene = RockStackScene()
-            newScene.size = CGSize(width: 350, height: 450)
+            newScene.size = CGSize(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.6)
             newScene.scaleMode = .aspectFill
             newScene.onRockTapped = { [weak self] diaryId in
                 self?.selectedDiaryId = diaryId
@@ -58,3 +59,4 @@ class SceneWrapper: ObservableObject {
             }
         }
     }
+
