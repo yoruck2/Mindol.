@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8409F6182CB3E4520020D165 /* Hakgyoansim-Dunggeunmiso-OTF-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8409F6162CB3E4510020D165 /* Hakgyoansim-Dunggeunmiso-OTF-B.otf */; };
+		8409F6192CB3E4520020D165 /* Hakgyoansim Dunggeunmiso-OTF-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8409F6172CB3E4520020D165 /* Hakgyoansim Dunggeunmiso-OTF-R.otf */; };
+		84298FB82CB4839900F9A307 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84298FB72CB4839900F9A307 /* UIScreen+.swift */; };
 		8490532A2CA990E20089DD08 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849053292CA990E20089DD08 /* DiaryListView.swift */; };
 		8490532C2CA990E30089DD08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8490532B2CA990E30089DD08 /* Assets.xcassets */; };
 		8490532F2CA990E30089DD08 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8490532E2CA990E30089DD08 /* Preview Assets.xcassets */; };
@@ -35,6 +38,17 @@
 		84B752332CB009170015B327 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752322CB009170015B327 /* SettingsView.swift */; };
 		84B752342CB01C560015B327 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 849053382CA991200089DD08 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		84B752372CB125020015B327 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B752362CB125020015B327 /* DatePickerView.swift */; };
+		84B752442CB350270015B327 /* Nadeuri-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523A2CB350220015B327 /* Nadeuri-B.otf */; };
+		84B752452CB350270015B327 /* Badasseugi-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523B2CB350230015B327 /* Badasseugi-L.otf */; };
+		84B752462CB350270015B327 /* GabiaGosran.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523C2CB350230015B327 /* GabiaGosran.otf */; };
+		84B752472CB350280015B327 /* Badasseugi-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523D2CB350240015B327 /* Badasseugi-B.otf */; };
+		84B752482CB350280015B327 /* Geurimilgi-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523E2CB350240015B327 /* Geurimilgi-R.otf */; };
+		84B752492CB350280015B327 /* Iseoyun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84B7523F2CB350250015B327 /* Iseoyun.ttf */; };
+		84B7524A2CB350280015B327 /* Nadeuri-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B752402CB350250015B327 /* Nadeuri-L.otf */; };
+		84B7524B2CB350280015B327 /* HSSaemaeul-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84B752412CB350260015B327 /* HSSaemaeul-Regular.ttf */; };
+		84B7524C2CB350280015B327 /* KyoboHandwriting2019.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B752422CB350270015B327 /* KyoboHandwriting2019.otf */; };
+		84B7524D2CB350280015B327 /* ladywatermelon-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84B752432CB350270015B327 /* ladywatermelon-Regular.otf */; };
+		84B752502CB355690015B327 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7524F2CB355690015B327 /* Font.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +66,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8409F6162CB3E4510020D165 /* Hakgyoansim-Dunggeunmiso-OTF-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hakgyoansim-Dunggeunmiso-OTF-B.otf"; sourceTree = "<group>"; };
+		8409F6172CB3E4520020D165 /* Hakgyoansim Dunggeunmiso-OTF-R.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hakgyoansim Dunggeunmiso-OTF-R.otf"; sourceTree = "<group>"; };
+		84298FB72CB4839900F9A307 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		849053242CA990E20089DD08 /* Mindol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mindol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849053292CA990E20089DD08 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		8490532B2CA990E30089DD08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +94,18 @@
 		84B7522F2CAFDCA00015B327 /* MindolTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindolTabView.swift; sourceTree = "<group>"; };
 		84B752322CB009170015B327 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		84B752362CB125020015B327 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		84B7523A2CB350220015B327 /* Nadeuri-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nadeuri-B.otf"; sourceTree = "<group>"; };
+		84B7523B2CB350230015B327 /* Badasseugi-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badasseugi-L.otf"; sourceTree = "<group>"; };
+		84B7523C2CB350230015B327 /* GabiaGosran.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GabiaGosran.otf; sourceTree = "<group>"; };
+		84B7523D2CB350240015B327 /* Badasseugi-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badasseugi-B.otf"; sourceTree = "<group>"; };
+		84B7523E2CB350240015B327 /* Geurimilgi-R.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geurimilgi-R.otf"; sourceTree = "<group>"; };
+		84B7523F2CB350250015B327 /* Iseoyun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Iseoyun.ttf; sourceTree = "<group>"; };
+		84B752402CB350250015B327 /* Nadeuri-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nadeuri-L.otf"; sourceTree = "<group>"; };
+		84B752412CB350260015B327 /* HSSaemaeul-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HSSaemaeul-Regular.ttf"; sourceTree = "<group>"; };
+		84B752422CB350270015B327 /* KyoboHandwriting2019.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KyoboHandwriting2019.otf; sourceTree = "<group>"; };
+		84B752432CB350270015B327 /* ladywatermelon-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ladywatermelon-Regular.otf"; sourceTree = "<group>"; };
+		84B7524E2CB350BA0015B327 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		84B7524F2CB355690015B327 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +142,7 @@
 		849053262CA990E20089DD08 /* Mindol */ = {
 			isa = PBXGroup;
 			children = (
+				84B7524E2CB350BA0015B327 /* Info.plist */,
 				8490534C2CA991C40089DD08 /* Rock.swift */,
 				849053552CA9AEF40089DD08 /* MindolApp.swift */,
 				84B7522F2CAFDCA00015B327 /* MindolTabView.swift */,
@@ -124,7 +154,7 @@
 				84B7521F2CADBA750015B327 /* Component */,
 				849053592CA9B29A0089DD08 /* ViewModifier */,
 				8490535C2CA9BF990089DD08 /* Extension */,
-				8490532B2CA990E30089DD08 /* Assets.xcassets */,
+				84B752382CB34F7E0015B327 /* Resource */,
 				8490532D2CA990E30089DD08 /* Preview Content */,
 			);
 			path = Mindol;
@@ -141,9 +171,9 @@
 		849053442CA9917B0089DD08 /* DiaryCRUD */ = {
 			isa = PBXGroup;
 			children = (
-				849053492CA991AB0089DD08 /* EmotionSelectionView.swift */,
 				8490534E2CA991DC0089DD08 /* CreateDiaryView.swift */,
 				8490535F2CA9D6D70089DD08 /* ReadDiaryView.swift */,
+				849053492CA991AB0089DD08 /* EmotionSelectionView.swift */,
 			);
 			path = DiaryCRUD;
 			sourceTree = "<group>";
@@ -170,6 +200,7 @@
 			children = (
 				8490535D2CA9BFAC0089DD08 /* Date+.swift */,
 				8490536C2CAC84CE0089DD08 /* UIApplication+.swift */,
+				84298FB72CB4839900F9A307 /* UIScreen+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -210,6 +241,35 @@
 				84B752322CB009170015B327 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		84B752382CB34F7E0015B327 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				84B752392CB34FDF0015B327 /* Font */,
+				8490532B2CA990E30089DD08 /* Assets.xcassets */,
+				84B7524F2CB355690015B327 /* Font.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		84B752392CB34FDF0015B327 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				8409F6162CB3E4510020D165 /* Hakgyoansim-Dunggeunmiso-OTF-B.otf */,
+				8409F6172CB3E4520020D165 /* Hakgyoansim Dunggeunmiso-OTF-R.otf */,
+				84B7523F2CB350250015B327 /* Iseoyun.ttf */,
+				84B7523C2CB350230015B327 /* GabiaGosran.otf */,
+				84B7523D2CB350240015B327 /* Badasseugi-B.otf */,
+				84B7523B2CB350230015B327 /* Badasseugi-L.otf */,
+				84B7523E2CB350240015B327 /* Geurimilgi-R.otf */,
+				84B7523A2CB350220015B327 /* Nadeuri-B.otf */,
+				84B752402CB350250015B327 /* Nadeuri-L.otf */,
+				84B752412CB350260015B327 /* HSSaemaeul-Regular.ttf */,
+				84B752422CB350270015B327 /* KyoboHandwriting2019.otf */,
+				84B752432CB350270015B327 /* ladywatermelon-Regular.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,8 +341,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B7524D2CB350280015B327 /* ladywatermelon-Regular.otf in Resources */,
 				8490532F2CA990E30089DD08 /* Preview Assets.xcassets in Resources */,
+				8409F6182CB3E4520020D165 /* Hakgyoansim-Dunggeunmiso-OTF-B.otf in Resources */,
+				84B752492CB350280015B327 /* Iseoyun.ttf in Resources */,
 				849053582CA9AF430089DD08 /* .gitignore in Resources */,
+				84B752462CB350270015B327 /* GabiaGosran.otf in Resources */,
+				84B752472CB350280015B327 /* Badasseugi-B.otf in Resources */,
+				84B7524B2CB350280015B327 /* HSSaemaeul-Regular.ttf in Resources */,
+				84B7524C2CB350280015B327 /* KyoboHandwriting2019.otf in Resources */,
+				8409F6192CB3E4520020D165 /* Hakgyoansim Dunggeunmiso-OTF-R.otf in Resources */,
+				84B752442CB350270015B327 /* Nadeuri-B.otf in Resources */,
+				84B752452CB350270015B327 /* Badasseugi-L.otf in Resources */,
+				84B752482CB350280015B327 /* Geurimilgi-R.otf in Resources */,
+				84B7524A2CB350280015B327 /* Nadeuri-L.otf in Resources */,
 				8490532C2CA990E30089DD08 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,10 +374,12 @@
 				8490535B2CA9B7C70089DD08 /* RowStackView.swift in Sources */,
 				8490536D2CAC84CE0089DD08 /* UIApplication+.swift in Sources */,
 				849053522CA99DEA0089DD08 /* DiaryRepository.swift in Sources */,
+				84298FB82CB4839900F9A307 /* UIScreen+.swift in Sources */,
 				8490534D2CA991C40089DD08 /* Rock.swift in Sources */,
 				8490535E2CA9BFAC0089DD08 /* Date+.swift in Sources */,
 				84B752372CB125020015B327 /* DatePickerView.swift in Sources */,
 				84B752302CAFDCA00015B327 /* MindolTabView.swift in Sources */,
+				84B752502CB355690015B327 /* Font.swift in Sources */,
 				84B752232CADBDBD0015B327 /* FlipCardView.swift in Sources */,
 				84B752252CADBEBD0015B327 /* SceneWrapper.swift in Sources */,
 				8490534F2CA991DC0089DD08 /* CreateDiaryView.swift in Sources */,
@@ -451,6 +525,7 @@
 				DEVELOPMENT_TEAM = DB9LFYULKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mindol/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Mindol;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -463,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yoruck2.Mindol;
+				PRODUCT_BUNDLE_IDENTIFIER = Mindol;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -486,6 +561,7 @@
 				DEVELOPMENT_TEAM = DB9LFYULKZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mindol/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Mindol;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -498,7 +574,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yoruck2.Mindol;
+				PRODUCT_BUNDLE_IDENTIFIER = Mindol;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

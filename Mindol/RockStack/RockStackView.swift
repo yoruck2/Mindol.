@@ -12,52 +12,52 @@ import FSCalendar
 
 struct RockStackView: View {
     @EnvironmentObject var sceneWrapper: SceneWrapper
-       @EnvironmentObject var diaryRepository: DiaryRepository
-       @StateObject private var flipCardPresenter = FlipCardPresenter()
-       @State private var navigationPath = NavigationPath()
-       @State private var selectedDate = Date()
-       @State private var currentMonth = Date()
-       @State private var selectedRock: Rock?
-       @State private var showingEmotionSelection = false
-       @State private var showCreateDiary = false
-       @State private var showReadDiary = false
-       @State private var selectedDiary: DiaryTable?
+    @EnvironmentObject var diaryRepository: DiaryRepository
+    @StateObject private var flipCardPresenter = FlipCardPresenter()
+    @State private var navigationPath = NavigationPath()
+    @State private var selectedDate = Date()
+    @State private var currentMonth = Date()
+    @State private var selectedRock: Rock?
+    @State private var showingEmotionSelection = false
+    @State private var showCreateDiary = false
+    @State private var showReadDiary = false
+    @State private var selectedDiary: DiaryTable?
     @Binding var currentTab: Int
     var body: some View {
-            NavigationStack(path: $navigationPath) {
-                ZStack {
-                    VStack(spacing: 0) {
-                        monthSelector
-                            .padding(.top, 10)
-                        
-                        FlipCardView(presenter: flipCardPresenter,
-                                     sceneWrapper: sceneWrapper,
-                                     selectedDate: $selectedDate,
-                                     currentMonth: $currentMonth,
-                                     showCreateDiary: $showCreateDiary,
-                                     showReadDiary: $showReadDiary,
-                                     showingEmotionSelection: $showingEmotionSelection,
-                                     selectedDiary: $selectedDiary)
-                        .padding(.vertical, 20)
-                        Spacer(minLength: 60)
-                    }
+        NavigationStack(path: $navigationPath) {
+            ZStack {
+                VStack(spacing: 0) {
+                    monthSelector
+                        .padding(.top, 10)
                     
-                    VStack {
-                        Spacer()
-                        if !isCurrentMonthAndYear() {
-                            Button {
-                                moveToCurrentDate()
-                            } label: {
-                                Text("오늘")
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 8)
-                                    .background(Capsule().fill(Color.orange))
-                                    .foregroundColor(.white)
-                                    .padding(.leading, 3)
-                            }
-                            .transition(.opacity)
-                            .animation(.easeInOut, value: isCurrentMonthAndYear())
+                    FlipCardView(presenter: flipCardPresenter,
+                                 sceneWrapper: sceneWrapper,
+                                 selectedDate: $selectedDate,
+                                 currentMonth: $currentMonth,
+                                 showCreateDiary: $showCreateDiary,
+                                 showReadDiary: $showReadDiary,
+                                 showingEmotionSelection: $showingEmotionSelection,
+                                 selectedDiary: $selectedDiary)
+                    .padding(.vertical, 20)
+                    Spacer(minLength: 60)
+                }
+                
+                VStack {
+                    Spacer()
+                    if !isCurrentMonthAndYear() {
+                        Button {
+                            moveToCurrentDate()
+                        } label: {
+                            Text("오늘로")
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 8)
+                                .background(Capsule().fill(Color.orange)).opacity(0.9)
+                                .foregroundColor(.white)
+                                .padding(.leading, 3)
                         }
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: isCurrentMonthAndYear())
+                    }
                     HStack {
                         NavigationLink(destination: SettingsView()) {
                             Image("setup")
@@ -78,30 +78,33 @@ struct RockStackView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 65, height: 65)
-                                .foregroundColor(.black)
+                                .foregroundColor(.color)
                         }
                         .rotationEffect(.degrees(flipCardPresenter.isFlipped ? 45 : 0))
                         .animation(.bouncy(), value: flipCardPresenter.isFlipped)
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 20, trailing: 0))
                         Spacer()
                         Button {
-                                                    withAnimation(.spring()) {
-                                                        withAnimation(.spring(duration: 0.4)) {
-                                                                                        currentTab = 1
-                                                                                    }
-                                                    }
-                                                } label: {
-                                                    Image("menu2")
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fill)
-                                                        .frame(width: 30, height: 30)
-                                                        .foregroundColor(.black)
-                                                }
-                                                .padding(.trailing, 40)
-                                                .padding(.bottom, 20)
+                            withAnimation(.spring()) {
+                                withAnimation(.spring(duration: 0.4)) {
+                                    currentTab = 1
+                                }
+                            }
+                        } label: {
+                            Image("menu2")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                        }
+                        .padding(.trailing, 40)
+                        .padding(.bottom, 20)
                     }
+                    
                 }
+                
             }
+            .background(.background1)
             .navigationBarHidden(true)
         }
         .onChange(of: currentMonth) { newValue in
@@ -111,49 +114,52 @@ struct RockStackView: View {
         //        .fullScreenCover(isPresented: $showingEmotionSelection) {
         //            EmotionSelectionView(selectedRock: $selectedRock, date: $selectedDate)
         //        }
-//        .sheet(isPresented: $showingEmotionSelection) {
-//            EmotionSelectionView(selectedRock: $selectedRock, date: $selectedDate)
-//        }
-//        .fullScreenCover(item: $selectedRock) { rock in
-//            CreateDiaryView(selectedRock: rock.rawValue, date: selectedDate, sceneWrapper: sceneWrapper)
-//        }
+        //        .sheet(isPresented: $showingEmotionSelection) {
+        //            EmotionSelectionView(selectedRock: $selectedRock, date: $selectedDate)
+        //        }
+        //        .fullScreenCover(item: $selectedRock) { rock in
+        //            CreateDiaryView(selectedRock: rock.rawValue, date: selectedDate, sceneWrapper: sceneWrapper)
+        //        }
         // scene에서 일기 선택
         .sheet(item: $sceneWrapper.selectedDiaryId) { diaryId in
             if let diary = diaryRepository.getDiary(by: diaryId) {
                 ReadDiaryView(diary: diary)
+                    .globalBackground(.background1)
             }
         }
         .sheet(isPresented: $showingEmotionSelection) {
-                    EmotionSelectionView(selectedRock: $selectedRock, date: $selectedDate)
-                }
-                .fullScreenCover(item: $selectedRock) { rock in
-                    CreateDiaryView(selectedRock: rock.rawValue, date: $selectedDate, sceneWrapper: sceneWrapper)
-                }
-                .sheet(item: $selectedDiary) { diary in
-                    ReadDiaryView(diary: diary)
-                }
-        
-        .onChange(of: sceneWrapper.currentMonth) { newValue in
-//            updateScene(for: newValue)
+            EmotionSelectionView(selectedRock: $selectedRock, date: $selectedDate)
         }
+        .fullScreenCover(item: $selectedRock) { rock in
+            CreateDiaryView(selectedRock: rock.rawValue, date: $selectedDate, sceneWrapper: sceneWrapper)
+                .onAppear(perform : UIApplication.shared.hideKeyboard)
+        }
+        .sheet(item: $selectedDiary) { diary in
+            ReadDiaryView(diary: diary)
+                .globalBackground(.background1)
+        }
+        
+//        .onChange(of: sceneWrapper.currentMonth) { newValue in
+//                        updateScene(for: newValue)
+//        }
     }
     private func isCurrentMonthAndYear() -> Bool {
-            let calendar = Calendar.current
-            let now = Date()
-            let currentComponents = calendar.dateComponents([.year, .month], from: now)
-            let selectedComponents = calendar.dateComponents([.year, .month], from: sceneWrapper.currentMonth)
-            return currentComponents.year == selectedComponents.year && currentComponents.month == selectedComponents.month
-        }
-        
-        private func moveToCurrentDate() {
-            let now = Date()
-            sceneWrapper.currentMonth = now
-            selectedDate = now
-            currentMonth = now
-            sceneWrapper.updateSceneForCurrentMonth()
-        }
-        
-
+        let calendar = Calendar.current
+        let now = Date()
+        let currentComponents = calendar.dateComponents([.year, .month], from: now)
+        let selectedComponents = calendar.dateComponents([.year, .month], from: sceneWrapper.currentMonth)
+        return currentComponents.year == selectedComponents.year && currentComponents.month == selectedComponents.month
+    }
+    
+    private func moveToCurrentDate() {
+        let now = Date()
+        sceneWrapper.currentMonth = now
+        selectedDate = now
+        currentMonth = now
+        sceneWrapper.updateSceneForCurrentMonth()
+    }
+    
+    
     
     // 오늘일기가 이미 있는지 확인
     private func checkAndProceedToNewDiary() {
@@ -176,11 +182,16 @@ struct RockStackView: View {
         HStack {
             Button(action: { moveMonth(by: -1) }) {
                 Image(systemName: "chevron.left")
+                    .resizable()
+                    .frame(width: 20, height: 30)
+                    .tint(.orange)
+                    .bold()
             }
             .disabled(!canMoveMonth(by: -1))
             
             Spacer()
             Text(sceneWrapper.currentMonth.formattedMonth)
+                .customFont(type: .Geurimilgi, size: 25)
                 .multilineTextAlignment(.center)
                 .onTapGesture {
                     flipCardPresenter.flipButtonTapped()
@@ -189,6 +200,10 @@ struct RockStackView: View {
             
             Button(action: { moveMonth(by: 1) }) {
                 Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 20, height: 30)
+                    .tint(.orange)
+                    .bold()
             }
             .disabled(!canMoveMonth(by: 1))
         }
@@ -196,18 +211,18 @@ struct RockStackView: View {
     }
     
     private func moveMonth(by offset: Int) {
-        if let newDate = Calendar.current.date(byAdding: .month, 
+        if let newDate = Calendar.current.date(byAdding: .month,
                                                value: offset,
                                                to: sceneWrapper.currentMonth),
            canMoveMonth(by: offset) {
             sceneWrapper.currentMonth = newDate
-//            updateScene(for: newDate)
-//            calendarReference?.setCurrentPage(newDate, animated: true)
+            //            updateScene(for: newDate)
+            //            calendarReference?.setCurrentPage(newDate, animated: true)
         }
     }
     
     private func canMoveMonth(by offset: Int) -> Bool {
-        guard let newDate = Calendar.current.date(byAdding: .month, 
+        guard let newDate = Calendar.current.date(byAdding: .month,
                                                   value: offset,
                                                   to: sceneWrapper.currentMonth)
         else {
@@ -224,10 +239,10 @@ struct RockStackView: View {
     //        return 1900...currentMonth ~= newDate.year
     //    }
     
-//    private func updateScene(for date: Date) {
-//        sceneWrapper.updateScene(for: date)
-//        sceneWrapper.refreshCalendar()
-//    }
+    //    private func updateScene(for date: Date) {
+    //        sceneWrapper.updateScene(for: date)
+    //        sceneWrapper.refreshCalendar()
+    //    }
     
     //       private func moveMonth(by offset: Int) {
     //           if let newDate = Calendar.current.date(byAdding: .month, value: offset, to: sceneWrapper.currentMonth) {

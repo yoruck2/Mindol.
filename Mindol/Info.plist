@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Hakgyoansim-Dunggeunmiso-OTF-B.otf</string>
+		<string>Hakgyoansim-Dunggeunmiso-OTF-R.otf</string>
+		<string>Iseoyun.ttf</string>
+		<string>GabiaGosran-Regular.otf</string>
+		<string>Badasseugi-B.otf</string>
+		<string>Badasseugi-L.otf</string>
+		<string>Geurimilgi-R.otf</string>
+		<string>Nadeuri-B.otf</string>
+		<string>Nadeuri-L.otf</string>
+		<string>HSSaemaeul-Regular.ttf</string>
+		<string>KyoboHandwriting2019.otf</string>
+		<string>ladywatermelon-Regular.otf</string>
+	</array>
+</dict>
+</plist>
