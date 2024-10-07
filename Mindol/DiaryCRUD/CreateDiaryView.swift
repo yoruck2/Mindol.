@@ -8,6 +8,7 @@ import SwiftUI
 import RealmSwift
 import Combine
 
+// Create
 struct CreateDiaryView: View {
     var realm = DiaryRepository.shared
     var selectedRock: String
@@ -44,25 +45,32 @@ struct CreateDiaryView: View {
                         .frame(height: 70)
                     
                     Text("\(date.formattedKoreanDate)")
-                        .font(.headline)
-                    
                     Text(date.koreanDayOfWeek)
-                        .font(.subheadline)
+                        .padding(.top, -10)
+                        .opacity(0.7)
                     AdjustableTextEditor(text: $diaryText, placeholder: placeholder)
                         .frame(height: 450)
+                        .customFont(type: .Geurimilgi,size: 20)
                     
                 }
                 .padding()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button("취소") {
+                        Button {
                             showingCancelAlert = true
+                        } label: {
+                            Image(systemName: "xmark")
+                                .tint(.black)
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("저장") {
+                        Button {
                             saveDiary()
+                        } label: {
+                            Image(systemName: "checkmark")
+                                .tint(.black)
                         }
+
                     }
                 }
                 
@@ -91,6 +99,7 @@ struct CreateDiaryView: View {
             } message: {
                 Text("작성하던 내용은 사라집니다.")
             }
+            .globalBackground(.background1)
         }
     }
     
@@ -125,15 +134,16 @@ struct AdjustableTextEditor: View {
     var body: some View {
         GeometryReader { geometry in
             TextEditor(text: $text)
+                .customFont(type: .Geurimilgi, size: 20)
                 .frame(height: max(260, textEditorHeight - keyboardHeight))
                 .padding(15)
                 .background(alignment: .topLeading) {
                     if text.isEmpty {
                         Text(placeholder)
+                            .customFont(type: .Geurimilgi, size: 20)
                             .lineSpacing(10)
                             .padding(20)
                             .padding(.top, 2)
-                            .font(.system(size: 14))
                             .foregroundColor(Color(UIColor.systemGray2))
                     }
                 }
@@ -141,18 +151,18 @@ struct AdjustableTextEditor: View {
                 .background(Color(UIColor.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .scrollContentBackground(.hidden)
-                .font(.system(size: 14))
+                .customFont(type: .Geurimilgi, size: 20)
                 .overlay(alignment: .bottomTrailing) {
                     Text("\(text.count)")
-                        .font(.system(size: 12))
                         .foregroundColor(Color(UIColor.systemGray2))
                         .padding(.trailing, 15)
                         .padding(.bottom, 15)
                 }
                 .onAppear {
-                    self.textEditorHeight = geometry.size.height
+                    self.textEditorHeight = geometry.size.height * 0.8
                 }
         }
+        .customFont(type: .Geurimilgi, size: 20)
         .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
     }
 }
