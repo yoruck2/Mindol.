@@ -19,42 +19,37 @@ struct DiaryListView: View {
     @State private var showYearPicker = false
     
     var filteredDiaries: [DiaryTable] {
-           let descendingDateList = diaryList.sorted(byKeyPath: "date", ascending: false)
-           return descendingDateList.filter { diary in
-               let components = Calendar.current.dateComponents([.year, .month], from: diary.date)
-               let yearMatches = components.year == selectedYear
-               let monthMatches = selectedMonth == nil || components.month == selectedMonth
-               return yearMatches && monthMatches
-           }
-       }
+        let descendingDateList = diaryList.sorted(byKeyPath: "date", ascending: false)
+        return descendingDateList.filter { diary in
+            let components = Calendar.current.dateComponents([.year, .month], from: diary.date)
+            let yearMatches = components.year == selectedYear
+            let monthMatches = selectedMonth == nil || components.month == selectedMonth
+            return yearMatches && monthMatches
+        }
+    }
     
     var body: some View {
         NavigationStack {
             ZStack {
                 Group {
                     if filteredDiaries.isEmpty {
-                        VStack {
-                            
-                            VStack(spacing: 20) {
-                                Image(.sad)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 65, height: 65)
-                                if let selectedMonth {
-                                    Text("\(selectedYear.description)년 \(selectedMonth)월에 기억할 일기가 없습니다")
-                                } else {
-                                    Text("\(selectedYear.description)년에 기억할 일기가 없습니다")
-                                }
-                                
-
-                                
-                               
+                        
+                        VStack(spacing: 20) {
+                            Image(.sad)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 65, height: 65)
+                            if let selectedMonth {
+                                Text("\(selectedYear.description)년 \(selectedMonth)월에 기억할 일기가 없습니다")
+                            } else {
+                                Text("\(selectedYear.description)년에 기억할 일기가 없습니다")
                             }
                         }
+                        
                     } else {
                         ScrollView {
                             ForEach(filteredDiaries) { diary in
-                                NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper)) {
+                                NavigationLink(destination: ReadDiaryView(diary: diary, sceneWrapper: _sceneWrapper).globalBackground(.background1)) {
                                     RowStackView(diary: diary)
                                 }
                                 .tint(.black)
@@ -70,6 +65,7 @@ struct DiaryListView: View {
                             Text(toolbarTitle)
                                 .capsuleBackground()
                                 .foregroundColor(.primary)
+                            
                         }
                     }
                     //                    ToolbarItem(placement: .topBarTrailing) {
@@ -80,13 +76,15 @@ struct DiaryListView: View {
                     //                        }
                     //                    }
                 }
-                .navigationTitle("일기 목록")
+                
                 .navigationBarTitleDisplayMode(.inline)
                 
                 if showYearPicker {
                     DatePickerView(selectedYear: $selectedYear, selectedMonth: $selectedMonth, isPresented: $showYearPicker)
+                        .customFont(type: .Geurimilgi, size: 20)
                 }
             }
+            .globalBackground(.background1)
         }
         var toolbarTitle: String {
             if let month = selectedMonth {
@@ -102,10 +100,11 @@ struct DiaryListView: View {
 struct CapsuleBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(Capsule().fill(Color.orange.opacity(0.2)))
+            .padding(.horizontal, 15)
+            .padding(.vertical, 10)
+            .background(Capsule().fill(Color.orange.opacity(0.3)))
             .foregroundColor(.primary)
+            .shadow(radius: 10)
     }
 }
 
@@ -137,10 +136,10 @@ extension View {
 //    @Binding var isPresented: Bool
 //    @State private var opacity: Double = 0
 //    @State private var tempSelectedYear: Int
-//    
+//
 //    private let currentYear = Calendar.current.component(.year, from: Date())
 //    private let yearRange: [Int]
-//    
+//
 //    init(selectedYear: Binding<Int>, isPresented: Binding<Bool>) {
 //        self._selectedYear = selectedYear
 //        self._isPresented = isPresented
@@ -148,7 +147,7 @@ extension View {
 //        self.yearRange = Array(1900...currentYear).reversed()
 //        self._tempSelectedYear = State(initialValue: selectedYear.wrappedValue)
 //    }
-//    
+//
 //    var body: some View {
 //        ZStack {
 //            Color.black.opacity(0.4)
@@ -156,12 +155,12 @@ extension View {
 //                .onTapGesture {
 //                    dismissView()
 //                }
-//            
+//
 //            VStack {
 //                Text("연도 선택")
 //                    .font(.headline)
 //                    .padding()
-//                
+//
 //                ScrollView {
 //                    LazyVStack {
 //                        ForEach(yearRange, id: \.self) { year in
@@ -176,7 +175,7 @@ extension View {
 //                    }
 //                }
 //                .frame(height: 200)
-//                
+//
 //                Button("선택") {
 //                    selectedYear = tempSelectedYear
 //                    dismissView()
@@ -195,7 +194,7 @@ extension View {
 //            }
 //        }
 //    }
-//    
+//
 //    private func dismissView() {
 //        withAnimation(.easeOut(duration: 0.2)) {
 //            opacity = 0

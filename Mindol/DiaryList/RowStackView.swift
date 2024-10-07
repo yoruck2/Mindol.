@@ -20,7 +20,9 @@ struct RowStackView: View {
                 VStack(alignment: .leading) {
                     Text(diary.date.formattedKoreanDate)
                     Text(diary.date.koreanDayOfWeek)
+                        .opacity(0.7)
                 }
+                .padding(.leading, 5)
                 Spacer()
             }
             .padding()
@@ -30,8 +32,9 @@ struct RowStackView: View {
             }
             if let text = diary.contents?.text {
                 Text(text)
-                    .lineLimit(5)
+                    .lineLimit(6)
                     .padding(.horizontal)
+                    .multilineTextAlignment(.leading)
             }
             
             Rectangle()

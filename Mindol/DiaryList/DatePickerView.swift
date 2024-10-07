@@ -36,8 +36,6 @@ struct DatePickerView: View {
                 }
             
             VStack(spacing: 20) {
-                
-                
                 HStack {
                     Picker("Year", selection: $selectedYear) {
                         ForEach(yearRange, id: \.self) { year in
@@ -58,15 +56,16 @@ struct DatePickerView: View {
                     .frame(width: 60)
                     .clipped()
                     Text("의 기억을 볼래요")
-                        .font(.headline)
                 }
+                
                 
                 Button("선택") {
                     dismissView()
                 }
+                .tint(.orange)
                 .padding()
             }
-            .frame(width: 300, height: 250)
+            .frame(width: 350, height: 250)
             .background(Color.white)
             .cornerRadius(20)
             .shadow(radius: 10)
@@ -78,6 +77,7 @@ struct DatePickerView: View {
             }
         }
     }
+    
     
     private func dismissView() {
         withAnimation(.easeOut(duration: 0.2)) {

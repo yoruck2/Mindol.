@@ -31,7 +31,8 @@ struct EmotionSelectionView: View {
                     }
                 }
             }
-                            .padding(.bottom, 100)
+            .padding(.bottom, 100)
+            .globalBackground(.background1)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
