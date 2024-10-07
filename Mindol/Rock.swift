@@ -10,7 +10,7 @@
 import SwiftUI
 
 enum Rock: String, CaseIterable, Identifiable {
-    case anger, flutter, sad, calm, joy, rock, example
+    case anger, flutter, calm, anxious, `default`, joy, sad, surprised, void
     
     var id: String { self.rawValue }
     var image: Image {
