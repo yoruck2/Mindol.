@@ -29,10 +29,13 @@ struct FlipCardView: View {
     @Binding var selectedDiary: DiaryTable?
 //    @Binding var calendarReference: FSCalendar?
     var body: some View {
-            ZStack {
+        GeometryReader { geometry in
+            ZStack(alignment: .trailing) {
                 // 앞면 (RockStackScene)
                 SpriteView(scene: sceneWrapper.getScene())
-                    .frame(width: 350, height: 450)
+                
+                    .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.6)
+                    .multilineTextAlignment(.center)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .opacity(presenter.isFlipped ? 0 : 1)
                 
@@ -42,12 +45,14 @@ struct FlipCardView: View {
                                    showingEmotionSelection: $showingEmotionSelection,
                                    showReadDiary: $showReadDiary,
                                    selectedDiary: $selectedDiary)
-                    .frame(width: 350, height: 450)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .opacity(presenter.isFlipped ? 1 : 0)
-                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.6)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .opacity(presenter.isFlipped ? 1 : 0)
+                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
             }
+            .frame(width: UIScreen.main.bounds.width)
             .rotation3DEffect(.degrees(presenter.isFlipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
             .animation(.default, value: presenter.isFlipped)
         }
+    }
 }

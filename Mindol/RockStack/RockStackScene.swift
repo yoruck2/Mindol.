@@ -115,8 +115,7 @@ class RockStackScene: SKScene {
         let ball = SKSpriteNode(imageNamed: rockType.rawValue)
         ball.position = position
         
-        ball.size = CGSize(width: RockStackSceneConfig.rockSize,
-                           height: RockStackSceneConfig.rockSize)
+        ball.size = CGSize(width: size.width * 0.18, height: size.height * 0.13)
         ball.name = diaryId.stringValue
         
         let physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2)
