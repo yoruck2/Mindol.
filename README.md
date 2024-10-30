@@ -1,5 +1,5 @@
 # <img src="https://github.com/user-attachments/assets/d104f54f-8422-428b-87e3-070590d37ca4" width="100"/> 마음돌.봄
-그날의 감정을 대신 표현해주는 돌 캐릭터와 함께 기록하고 쌓을 수 있는 감정일기 앱
+그날의 감정을 대신 표현해주는 돌 캐릭터와 함께 기록하고 쌓을 수 있는 감정일기 앱<br>
 "소중한 기억들을 돌에 새겨 차곡차곡 쌓아보세요."
 >**개발환경**<br><br>
 ![Static Badge](https://img.shields.io/badge/Xcode-15.4-blue) ![Static Badge](https://img.shields.io/badge/Swift-5.10-orange) ![Static Badge](https://img.shields.io/badge/iOS-16.0%2B-pink)
@@ -10,7 +10,7 @@
 
 |메인화면|달력화면|일기상세|일기작성|일기열람|
 |:-:|:-:|:-:|:-:|:-:|
-|<img src="https://github.com/user-attachments/assets/56e0d0f2-4b81-40d0-81d5-ba4b4c245f79" width="150"/>|<img src="https://github.com/user-attachments/assets/ca81512e-3ce3-4632-99da-b680cf98de19" width="150"/>|<img src="https://github.com/user-attachments/assets/292ff455-5c5d-4938-9c0a-85c029d8aab9" width="150"/>|<img src="https://github.com/user-attachments/assets/d45cfc7a-6574-47fe-ab36-4e42f04da8f3" width="150" width="150"/>|
+|<img src="https://github.com/user-attachments/assets/56e0d0f2-4b81-40d0-81d5-ba4b4c245f79" width="150"/>|<img src="https://github.com/user-attachments/assets/ca81512e-3ce3-4632-99da-b680cf98de19" width="150"/>|<img src="https://github.com/user-attachments/assets/292ff455-5c5d-4938-9c0a-85c029d8aab9" width="150"/>|<img src="https://github.com/user-attachments/assets/4fa37340-28ee-48bf-82b7-43bcfa27fac3" width="150"/>|<img src="https://github.com/user-attachments/assets/d45cfc7a-6574-47fe-ab36-4e42f04da8f3" width="150" width="150"/>|
 
 
 ## 📌 주요기능
