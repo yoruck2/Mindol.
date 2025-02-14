@@ -19,9 +19,8 @@
 - **달력 기능**: 달력을 통해 한눈에 일기현황을 파악할 수 있으며 일기를 열람하거나 새 일기를 작성할 수 있습니다.
 - **월간/연간 리스트로 일기 열람**
     - 리스트 형태로 일기를 열람하고 지정한 연/월로 조회할 수 있습니다.
-    - 일기검색기능(예정)
+    - 일기검색기능
 #### 예정된 업데이트
-- 일기 검색기능
 - 사진 추가기능
 - 음성 녹음기능
 
@@ -29,15 +28,23 @@
 | 분야               | 기술 스택                                  |
 |--------------------|-------------------------------------------|
 | 🎨 UI              | `SwiftUI`<br>                            |
+|♻️ 반응형 프로그래밍	 |  `Combine`
 | 📦 데이터베이스       | `RealmSwift`<br>`+ Repository 패턴`        |
 | 🎸 기타             | `SpriteKit`<br>`CoreMotion`<br>             |
 
 ## 🛠️ 주요 기술 상세
 
 
-- `SpriteKit` + `CoreMotion`
-    - 해당하는 달의 일기를 각각의 node로 생성해 physicsBody에 현실과 유사한 물리법칙을 적용하고 CoreMotion 을 활용해 디바이스 움직임에 따라 node가 움직이도록 구현
+#### SpriteKit, CoreMotion 을 활용한 `RockStackScene` 구현
+- 해당하는 달의 일기를 각각의 일기 데이터를 가진 SKNode로 생성하여 
+physicsBody에 현실과 유사한 물리법칙을 적용
+- CMMotionManager 을 활용하여 디바이스 움직임에 따라 node가 움직이도록 구현
+- `SceneWrapper`<br>
+현재 월별 데이터 관리 및 업데이트를 담당하며 Scene과 다른 객체 사이의 중개자 역할
+현재 보고있는 달(currentMonth)이 변화할 때 DiaryRepository로부터 해당 달의 일기 데이터를 RockStackScene 및 CustomCalendarView에 반영
 
-- `SwiftUI` + `RealmSwift`
-    - @ObservedResults와 @ObservedRealmObject 프로퍼티 래퍼를 사용해 데이터가 변경될 때마다 자동으로 UI가 업데이트되도록 구현
-    - Repository 패턴으로 데이터베이스 작업을 하나의 클래스로 모아 관리
+<img src="https://github.com/user-attachments/assets/a5283d1d-2469-4a5d-8209-165f444898c8" width="850" height="550" />
+
+#### RealmSwift 을 활용한 실시간 데이터베이스 동기화
+- @ObservedResults와 @ObservedRealmObject 프로퍼티 래퍼를 사용해 데이터가 변경될 때마다 자동으로 UI가 업데이트되도록 구현
+- Repository 패턴으로 데이터베이스 작업을 하나의 클래스로 모아 관리
